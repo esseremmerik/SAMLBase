@@ -2,7 +2,7 @@
     "name": "wizkunde/php-sso",
     "minimum-stability":"dev",
     "require": {
-        "symfony/dependency-injection": "2.4.*@dev",
+        "symfony/dependency-injection": "~2.3",
         "fr3d/xmlseclibs": "dev-hotfix/validation-references"
     },
     "require-dev": {
