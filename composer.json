@@ -1,5 +1,5 @@
 {
-    "name": "wizkunde/php-sso",
+    "name": "wizkunde/opensaml",
     "minimum-stability":"dev",
     "require": {
         "symfony/dependency-injection": "~2.3",
@@ -10,7 +10,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Wizkunde\\PHPSSO": "src/"
+            "Wizkunde\\OpenSAML": "src/"
         }
     }
 }
