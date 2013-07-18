@@ -6,16 +6,25 @@ use Wizkunde\OpenSAML\Configuration\Certificate;
 
 class Configuration implements ConfigurationInterface
 {
+    const NAMEID_EMAIL_ADDRESS                 = 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress';
+    const NAMEID_X509_SUBJECT_NAME             = 'urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName';
+    const NAMEID_WINDOWS_DOMAIN_QUALIFIED_NAME = 'urn:oasis:names:tc:SAML:1.1:nameid-format:WindowsDomainQualifiedName';
+    const NAMEID_KERBEROS   = 'urn:oasis:names:tc:SAML:2.0:nameid-format:kerberos';
+    const NAMEID_ENTITY     = 'urn:oasis:names:tc:SAML:2.0:nameid-format:entity';
+    const NAMEID_TRANSIENT  = 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient';
+    const NAMEID_PERSISTENT = 'urn:oasis:names:tc:SAML:2.0:nameid-format:persistent';
+
     /**
      * @var array Basic configuration
      */
     public $_configuration = array(
-        'NameID'                => '',
-        'Issuer'                => '',
-        'IDPMetadataUrl'        => '',
-        'SPReturnUrl'           => '',
-        'SigningCertificate'    => '',
-        'EncryptionCertificate' => ''
+        'NameID'                    => '',
+        'Issuer'                    => '',
+        'IDPMetadataUrl'            => '',
+        'MetadataExpirationTime'    => 604800,
+        'SPReturnUrl'               => '',
+        'SigningCertificate'        => '',
+        'EncryptionCertificate'     => ''
     );
 
     /**
@@ -35,9 +44,9 @@ class Configuration implements ConfigurationInterface
      *
      * @param string $nameId
      */
-    public function setNameId($nameIdField)
+    public function setNameIdFormat($nameIdField = self::NAMEID_EMAIL_ADDRESS)
     {
-        $this->_configuration['NameID'] = $nameIdField;
+        $this->_configuration['NameIDFormat'] = $nameIdField;
     }
 
     /**
@@ -45,7 +54,7 @@ class Configuration implements ConfigurationInterface
      *
      * @return string
      */
-    public function getNameId()
+    public function getNameIdFormat()
     {
         return $this->_configuration['NameID'];
     }
@@ -88,6 +97,29 @@ class Configuration implements ConfigurationInterface
     {
         return $this->_configuration['IDPMetadataUrl'];
     }
+
+    /**
+     * Set the local Metadata expire time
+     *
+     * @param string $idpMetadataUrl
+     */
+    public function setMetadataExpirationTime($metadataExpireTime = 604800)
+    {
+        if(is_integer($metadataExpireTime)) {
+            $this->_configuration['MetadataExpirationTime'] = $metadataExpireTime;
+        }
+    }
+
+    /**
+     * Get the local Metadata expire time
+     *
+     * @return integer
+     */
+    public function getMetadataExpirationTime()
+    {
+        return $this->_configuration['MetadataExpirationTime'];
+    }
+
 
     /**
      * Set the return URL to return to in the SP

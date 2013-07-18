@@ -20,14 +20,14 @@ interface ConfigurationInterface
      *
      * @param string $nameIdField
      */
-    public function setNameId($nameIdField);
+    public function setNameIdFormat($nameIdField);
 
     /**
      * Get the field that is used as NameId
      *
      * @return string
      */
-    public function getNameId();
+    public function getNameIdFormat();
 
     /**
      * Get the issuer
@@ -55,6 +55,21 @@ interface ConfigurationInterface
      * @return string
      */
     public function getIdpMetadataUrl();
+
+    /**
+     * Set the local Metadata expire time
+     *
+     * @param string $idpMetadataUrl
+     */
+    public function setMetadataExpirationTime($metadataExpireTime = 604800);
+
+    /**
+     * Get the local Metadata expire time
+     *
+     * @return integer
+     */
+    public function getMetadataExpirationTime();
+
 
     /**
      * Set the return URL to return to in the SP
