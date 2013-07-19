@@ -2,7 +2,7 @@
 
 namespace Wizkunde\OpenSAML\Template;
 
-use Wizkunde\OpenSAML\Configuration\TeplateAbstract;
+use Wizkunde\OpenSAML\Template\TeplateAbstract;
 use Wizkunde\OpenSAML\Configuration\UniqueID;
 use Wizkunde\OpenSAML\Configuration\Timestamp;
 
