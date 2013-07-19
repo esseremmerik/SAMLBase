@@ -6,7 +6,14 @@ use Wizkunde\OpenSAML\Configuration\TeplateAbstract;
 use Wizkunde\OpenSAML\Configuration\UniqueID;
 use Wizkunde\OpenSAML\Configuration\Timestamp;
 
-class Request extends TemplateAbstract
+/**
+ * Class Request
+ *
+ * Template for the AuthnRequest
+ *
+ * @package Wizkunde\OpenSAML\Template
+ */
+class AuthnRequest extends TemplateAbstract
 {
     public function __toString()
     {

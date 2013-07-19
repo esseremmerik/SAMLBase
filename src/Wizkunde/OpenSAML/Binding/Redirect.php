@@ -3,7 +3,7 @@
 namespace Wizkunde\OpenSAML\Binding;
 
 use Wizkunde\OpenSAML\Binding\BindingAbstract;
-use Wizkunde\OpenSAML\Template\Request as RequestTemplate;
+use Wizkunde\OpenSAML\Template\AuthnRequest as RequestTemplate;
 
 class Redirect extends BindingAbstract
 {
