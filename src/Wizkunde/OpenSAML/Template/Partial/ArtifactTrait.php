@@ -6,11 +6,8 @@ use Wizkunde\OpenSAML\Template\TeplateAbstract;
 
 trait ArtifactTrait
 {
-    public function getArtifactTemplate()
+    public function getArtifactTemplate($artifact)
     {
-        // @todo actually set artifact
-        $artifact = '';
-
         $template = <<<ARTIFACT
             <samlp:Artifact>{$artifact}</samlp:Artifact>
 ARTIFACT;

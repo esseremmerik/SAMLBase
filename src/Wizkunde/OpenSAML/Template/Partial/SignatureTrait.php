@@ -6,11 +6,11 @@ use Wizkunde\OpenSAML\Template\TeplateAbstract;
 
 trait SignatureTrait
 {
-    public function getSignatureTemplate()
+    public function getSignatureTemplate($signature)
     {
         $template = <<<SIGNATURE
     <ds:Signature
-      xmlns:ds="http://www.w3.org/2000/09/xmldsig#">...</ds:Signature>
+      xmlns:ds="http://www.w3.org/2000/09/xmldsig#">{$signature}</ds:Signature>
 SIGNATURE;
 
         return $template;

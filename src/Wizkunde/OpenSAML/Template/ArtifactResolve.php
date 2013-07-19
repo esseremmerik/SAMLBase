@@ -29,6 +29,7 @@ class ArtifactResolve extends TemplateAbstract
         $id = new UniqueID();
         $timestamp = new Timestamp();
         $artifact = '';
+        $signature = '';
 
         $template = <<<ARTIFACTRESOLVE
 <samlp:ArtifactResolve
@@ -37,9 +38,9 @@ class ArtifactResolve extends TemplateAbstract
     ID="{$id}"
     Version="2.0"
     IssueInstant="{$timestamp}">
-    {$this->getIssuerTemplate()}
-    {$this->getSignatureTemplate()}
-    {$this->getArtifactTemplate()}
+    {$this->getIssuerTemplate($this->configuration->getIssuer())}
+    {$this->getSignatureTemplate($signature)}
+    {$this->getArtifactTemplate($artifact)}
   </samlp:ArtifactResolve>
 ARTIFACTRESOLVE;
 

@@ -6,11 +6,8 @@ use Wizkunde\OpenSAML\Template\TeplateAbstract;
 
 trait IssuerTrait
 {
-    public function getIssuerTemplate()
+    public function getIssuerTemplate($issuer)
     {
-        // @todo actually set issuer
-        $issuer = '';
-
         $template = <<<ISSUER
                 <saml:Issuer>{$issuer}</saml:Issuer>
 ISSUER;
