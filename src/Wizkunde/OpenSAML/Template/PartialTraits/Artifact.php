@@ -1,12 +1,12 @@
 <?php
 
-namespace Wizkunde\OpenSAML\Template\Partial;
+namespace Wizkunde\OpenSAML\Template\PartialTraits;
 
 use Wizkunde\OpenSAML\Template\TeplateAbstract;
 
-class Artifact extends TemplateAbstract
+trait Artifact
 {
-    public function __toString()
+    public function getArtifactTemplate()
     {
         // @todo actually set artifact
         $artifact = '';

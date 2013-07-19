@@ -1,12 +1,12 @@
 <?php
 
-namespace Wizkunde\OpenSAML\Template\Partial;
+namespace Wizkunde\OpenSAML\Template\PartialTraits;
 
 use Wizkunde\OpenSAML\Template\TeplateAbstract;
 
-class Signature extends TemplateAbstract
+trait Signature
 {
-    public function __toString()
+    public function getSignatureTemplate()
     {
         $template = <<<SIGNATURE
     <ds:Signature

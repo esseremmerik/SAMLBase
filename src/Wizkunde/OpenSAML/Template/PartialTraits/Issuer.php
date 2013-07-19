@@ -1,12 +1,12 @@
 <?php
 
-namespace Wizkunde\OpenSAML\Template\Partial;
+namespace Wizkunde\OpenSAML\Template\PartialTraits;
 
 use Wizkunde\OpenSAML\Template\TeplateAbstract;
 
-class Issuer extends TemplateAbstract
+trait Issuer
 {
-    public function __toString()
+    public function getIssuerTemplate()
     {
         // @todo actually set issuer
         $issuer = '';
