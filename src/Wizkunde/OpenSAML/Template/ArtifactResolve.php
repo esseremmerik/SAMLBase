@@ -18,9 +18,9 @@ class ArtifactResolve extends TemplateAbstract
     /**
      * Template traits
      */
-    use \Wizkunde\OpenSAML\Template\PartialTraits\Artifact;
-    use \Wizkunde\OpenSAML\Template\PartialTraits\Issuer;
-    use \Wizkunde\OpenSAML\Template\PartialTraits\Signature;
+    use \Wizkunde\OpenSAML\Template\Partial\ArtifactTrait;
+    use \Wizkunde\OpenSAML\Template\Partial\IssuerTrait;
+    use \Wizkunde\OpenSAML\Template\Partial\SignatureTrait;
 
     public function __toString()
     {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Wizkunde\OpenSAML\Template\PartialTraits;
+namespace Wizkunde\OpenSAML\Template\Partial;
 
 use Wizkunde\OpenSAML\Template\TeplateAbstract;
 
-trait Signature
+trait SignatureTrait
 {
     public function getSignatureTemplate()
     {

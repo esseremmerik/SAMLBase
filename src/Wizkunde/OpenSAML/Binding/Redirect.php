@@ -16,13 +16,6 @@ class Redirect extends BindingAbstract
 {
     protected $request = '';
 
-    protected $configuration = null;
-
-    public function __construct(Configuration $configuration)
-    {
-        $this->configuration = $configuration;
-    }
-
     /**
      * Do a request with the current binding
      */

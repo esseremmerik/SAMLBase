@@ -13,13 +13,6 @@ use Wizkunde\OpenSAML\Configuration;
 interface TemplateInterface
 {
     /**
-     * Setup the template with configuration
-     *
-     * @param Configuration $configuration
-     */
-    public function __construct(Configuration $configuration);
-
-    /**
      * Automatically return the template as a string
      *
      * @return string

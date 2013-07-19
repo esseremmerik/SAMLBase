@@ -3,6 +3,7 @@
 namespace Wizkunde\OpenSAML\Template;
 
 use Wizkunde\OpenSAML\Configuration;
+use Wizkunde\OpenSAML\ConfigurationTrait;
 
 /**
  * Class TemplateAbstract
@@ -13,10 +14,5 @@ use Wizkunde\OpenSAML\Configuration;
  */
 abstract class TemplateAbstract implements TemplateInterface
 {
-    protected $configuration = null;
-
-    public function __construct(Configuration $configuration)
-    {
-        $this->configuration = $configuration;
-    }
+    use ConfigurationTrait;
 }
