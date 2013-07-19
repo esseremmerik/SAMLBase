@@ -5,6 +5,13 @@ namespace Wizkunde\OpenSAML\Binding;
 use Wizkunde\OpenSAML\Binding\BindingAbstract;
 use Wizkunde\OpenSAML\Template\AuthnRequest as RequestTemplate;
 
+/**
+ * Class Redirect
+ *
+ * Redirect binding that uses HTTP-GET as a transport for a SAML request
+ *
+ * @package Wizkunde\OpenSAML\Binding
+ */
 class Redirect extends BindingAbstract
 {
     protected $request = '';
@@ -16,11 +23,18 @@ class Redirect extends BindingAbstract
         $this->configuration = $configuration;
     }
 
+    /**
+     * Do a request with the current binding
+     */
     public function request()
     {
         $redirectUrl = $this->buildRedirectUrl();
     }
 
+    /**
+     * Build the Redirect URL, using the template thats provided
+     * @return RequestTemplate
+     */
     protected function buildRedirectUrl()
     {
        return new RequestTemplate($this->configuration);
