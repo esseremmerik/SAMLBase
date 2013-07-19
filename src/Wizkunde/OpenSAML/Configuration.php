@@ -24,7 +24,8 @@ class Configuration implements ConfigurationInterface
         'MetadataExpirationTime'    => 604800,
         'SPReturnUrl'               => '',
         'SigningCertificate'        => '',
-        'EncryptionCertificate'     => ''
+        'EncryptionCertificate'     => '',
+        'ComparisonLevel'           => 'exact'
     );
 
     /**
@@ -57,6 +58,26 @@ class Configuration implements ConfigurationInterface
     public function getNameIdFormat()
     {
         return $this->_configuration['NameID'];
+    }
+
+    /**
+     * Get the comparison level
+     *
+     * @return string
+     */
+    public function getComparisonLevel()
+    {
+        return $this->_configuration['ComparisonLevel'];
+    }
+
+    /**
+     * Set the comparison level
+     *
+     * @return string name of the SP
+     */
+    public function setComparisonLevel($level = 'exact')
+    {
+        $this->_configuration['ComparisonLevel'] = $level;
     }
 
     /**
