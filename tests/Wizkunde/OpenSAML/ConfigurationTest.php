@@ -34,8 +34,8 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
 
     public function testIdpMetadataUrlSetProperly()
     {
-        $this->configuration->setIdpMetadataUrl('idp.wizkunde.nl/simplesaml/saml2/idp/metadata.php');
-        $this->assertEquals($this->configuration->getIdpMetadataUrl() , 'idp.wizkunde.nl/simplesaml/saml2/idp/metadata.php');
+        $this->configuration->setIdpMetadataUrl('http://idp.wizkunde.nl/simplesaml/saml2/idp/metadata.php');
+        $this->assertEquals($this->configuration->getIdpMetadataUrl() , 'http://idp.wizkunde.nl/simplesaml/saml2/idp/metadata.php');
     }
 
     public function testMetadataExpirationTimeSetProperly()

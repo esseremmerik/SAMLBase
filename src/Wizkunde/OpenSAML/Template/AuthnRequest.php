@@ -28,12 +28,12 @@ class AuthnRequest extends TemplateAbstract
     Version="2.0"
     IssueInstant="$timestamp"
     ProtocolBinding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
-    AssertionConsumerServiceURL="{$this->configuration->getSPReturnURL()}">
-    <saml:Issuer>{$this->configuration->getIssuer()}</saml:Issuer>
+    AssertionConsumerServiceURL="{$this->getConfiguration()->getSpReturnURL()}">
+    <saml:Issuer>{$this->getConfiguration()->getIssuer()}</saml:Issuer>
     <samlp:NameIDPolicy
-        Format="{$this->configuration->getNameIdFormat()}"
+        Format="{$this->getConfiguration()->getNameIdFormat()}"
         AllowCreate="true"></samlp:NameIDPolicy>
-    <samlp:RequestedAuthnContext Comparison="{$this->configuration->getComparisonLevel()}">
+    <samlp:RequestedAuthnContext Comparison="{$this->getConfiguration()->getComparisonLevel()}">
         <saml:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport</saml:AuthnContextClassRef>
     </samlp:RequestedAuthnContext>
 </samlp:AuthnRequest>
@@ -43,6 +43,6 @@ AUTHNREQUEST;
         $base64Request = base64_encode($deflatedRequest);
         $encodedRequest = urlencode($base64Request);
 
-        return $this->configuration->getIdpMetadataUrl() . "?SAMLRequest=" . $encodedRequest;
+        return $this->getConfiguration()->getIdpMetadataUrl() . "?SAMLRequest=" . $encodedRequest;
     }
 }
