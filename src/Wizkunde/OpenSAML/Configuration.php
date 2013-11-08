@@ -47,7 +47,7 @@ class Configuration implements ConfigurationInterface
      */
     public function setNameIdFormat($nameIdField = self::NAMEID_EMAIL_ADDRESS)
     {
-        $this->_configuration['NameIDFormat'] = $nameIdField;
+        $this->_configuration['NameID'] = $nameIdField;
     }
 
     /**
@@ -211,8 +211,8 @@ class Configuration implements ConfigurationInterface
         if(count($configurationData) > 0) {
             foreach($configurationData as $configurationKey => $value)
             {
-                if(array_key_exists($configurationData, $this->_configuration)) {
-                    $this->_configuration[$configurationData] = $value;
+                if(array_key_exists($configurationKey, $this->_configuration)) {
+                    $this->_configuration[$configurationKey] = $value;
                 }
             }
         }
