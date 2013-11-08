@@ -18,11 +18,11 @@ class Metadata extends TemplateAbstract
 <?xml version="1.0"?>
 <md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"
                      validUntil="{$timestamp}"
-                     entityID="{$this->configuration->getIssuer()}">
+                     entityID="{$this->getConfiguration()->getIssuer()}">
     <md:SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
-        <md:NameIDFormat>{$this->configuration->getNameIdFormat()}</md:NameIDFormat>
+        <md:NameIDFormat>{$this->getConfiguration()->getNameIdFormat()}</md:NameIDFormat>
         <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
-                                     Location="{$this->configuration->getSpReturnUrl()}"
+                                     Location="{$this->getConfiguration()->getSpReturnUrl()}"
                                      index="1"/>
     </md:SPSSODescriptor>
 </md:EntityDescriptor>

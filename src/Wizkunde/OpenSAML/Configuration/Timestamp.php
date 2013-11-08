@@ -33,6 +33,6 @@ class Timestamp
 
     public function __toString()
     {
-        return $this->timestamp;
+        return (string)$this->timestamp;
     }
 }

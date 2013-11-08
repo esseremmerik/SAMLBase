@@ -4,13 +4,11 @@ namespace Wizkunde\OpenSAML\Configuration;
 
 use Wizkunde\OpenSAML\Configuration;
 use Wizkunde\OpenSAML\Template\Metadata as MetadataTemplate;
+use Wizkunde\OpenSAML\ConfigurationTrait;
 
 class Metadata implements MetadataInterface
 {
-    /**
-     * @var Wizkunde\OpenSAML\Configuration
-     */
-    protected $configuration = null;
+    use ConfigurationTrait;
 
     /**
      * @param Configuration $configuration
@@ -18,7 +16,7 @@ class Metadata implements MetadataInterface
      */
     public function construct(Configuration $configuration)
     {
-        $this->configuration = $configuration;
+        $this->setConfiguration($configuration);
     }
 
     /**
@@ -26,6 +24,9 @@ class Metadata implements MetadataInterface
      */
     public function getMetadata()
     {
-        return new MetadataTemplate($this->configuration);
+        $metadataTemplate = new MetadataTemplate();
+        $metadataTemplate->setConfiguration($this->getConfiguration());
+
+        return (string)$metadataTemplate;
     }
 }
