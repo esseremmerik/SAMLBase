@@ -10,7 +10,7 @@ class UniqueID
 
     public function __construct()
     {
-        $this->uniqueID = $this->prefix . sha1(uniqid(mt_rand(), TRUE));
+        $this->uniqueID = $this->prefix . sha1(uniqid(mt_rand(), true));
     }
 
     /**

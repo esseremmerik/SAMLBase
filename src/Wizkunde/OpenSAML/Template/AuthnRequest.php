@@ -34,7 +34,9 @@ class AuthnRequest extends TemplateAbstract
         Format="{$this->getConfiguration()->getNameIdFormat()}"
         AllowCreate="true"></samlp:NameIDPolicy>
     <samlp:RequestedAuthnContext Comparison="{$this->getConfiguration()->getComparisonLevel()}">
-        <saml:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport</saml:AuthnContextClassRef>
+        <saml:AuthnContextClassRef>
+            urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport
+        </saml:AuthnContextClassRef>
     </samlp:RequestedAuthnContext>
 </samlp:AuthnRequest>
 AUTHNREQUEST;

@@ -1,6 +1,7 @@
 <?php
 
 namespace Wizkunde\OpenSAML\Template;
+
 use Wizkunde\OpenSAML\Configuration;
 
 /**

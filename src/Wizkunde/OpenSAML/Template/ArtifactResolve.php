@@ -44,6 +44,6 @@ class ArtifactResolve extends TemplateAbstract
   </samlp:ArtifactResolve>
 ARTIFACTRESOLVE;
 
-       return $template;
+        return $template;
     }
 }

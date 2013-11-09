@@ -209,8 +209,7 @@ class Configuration implements ConfigurationInterface
     public function setConfiguration(array $configurationData)
     {
         if (count($configurationData) > 0) {
-            foreach ($configurationData as $configurationKey => $value)
-            {
+            foreach ($configurationData as $configurationKey => $value) {
                 if (array_key_exists($configurationKey, $this->configuration)) {
                     $this->configuration[$configurationKey] = $value;
                 }
