@@ -12,7 +12,7 @@ use Wizkunde\OpenSAML\Configuration\CertificateInterface;
  */
 class Certificate implements CertificateInterface
 {
-    public $_certificate = '';
+    protected $certificate = '';
 
     /**
      * Setup the certificate
@@ -29,7 +29,7 @@ class Certificate implements CertificateInterface
      */
     public function getCertificate()
     {
-        return $this->_certificate;
+        return $this->certificate;
     }
 
     /**
@@ -39,7 +39,7 @@ class Certificate implements CertificateInterface
      */
     public function setCertificate($certificateData = '')
     {
-        $this->_certificate = $certificateData;
+        $this->certificate = $certificateData;
     }
 
     /**
