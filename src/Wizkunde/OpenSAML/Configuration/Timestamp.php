@@ -16,23 +16,42 @@ class Timestamp
      *
      * @return string Get a valid timestamp
      */
-    public  function __construct()
+    public  function __construct($time = null)
     {
-        $timeZone = date_default_timezone_get();
-        date_default_timezone_set('UTC');
-        $time = strftime("%Y-%m-%dT%H:%M:%SZ", time());
-        date_default_timezone_set($timeZone);
+        if($time === null) {
+            $time = time();
+        }
 
-        $this->timestamp = $time;
+        $this->timestamp = new \DateTime();
+        $this->timestamp->setTimestamp($time);
+
+        $UTC = new \DateTimeZone("UTC");
+        $this->timestamp->setTimezone($UTC);
+
+//        $timeZone = date_default_timezone_get();
+//        date_default_timezone_set('UTC');
+//        $time = strftime("%Y-%m-%dT%H:%M:%SZ", $time);
+//        date_default_timezone_set($timeZone);
+    }
+
+    public function getDate()
+    {
+        return $this->timestamp;
     }
 
     public function add($seconds = 0)
     {
-        $this->timestamp = $this->timestamp + $seconds;
+        $dateInterval = new \DateInterval('PT' . $seconds . 'S');
+        $this->timestamp->add($dateInterval);
+    }
+
+    public function toTimestamp()
+    {
+        return $this->timestamp->getTimestamp();
     }
 
     public function __toString()
     {
-        return (string)$this->timestamp;
+        return $this->timestamp->format('Y-m-d\TH:i:s\Z');
     }
 }
