@@ -17,7 +17,7 @@ class Configuration implements ConfigurationInterface
     /**
      * @var array Basic configuration
      */
-    public $_configuration = array(
+    protected $configuration = array(
         'NameID'                    => '',
         'Issuer'                    => '',
         'IDPMetadataUrl'            => '',
@@ -33,9 +33,9 @@ class Configuration implements ConfigurationInterface
      *
      * @param array $_configuration
      */
-    public function __construct($_configuration = array())
+    public function __construct($configuration = array())
     {
-        $this->setConfiguration($_configuration);
+        $this->setConfiguration($configuration);
     }
 
     /**
@@ -47,7 +47,7 @@ class Configuration implements ConfigurationInterface
      */
     public function setNameIdFormat($nameIdField = self::NAMEID_EMAIL_ADDRESS)
     {
-        $this->_configuration['NameID'] = $nameIdField;
+        $this->configuration['NameID'] = $nameIdField;
     }
 
     /**
@@ -57,7 +57,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getNameIdFormat()
     {
-        return $this->_configuration['NameID'];
+        return $this->configuration['NameID'];
     }
 
     /**
@@ -67,7 +67,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getComparisonLevel()
     {
-        return $this->_configuration['ComparisonLevel'];
+        return $this->configuration['ComparisonLevel'];
     }
 
     /**
@@ -77,7 +77,7 @@ class Configuration implements ConfigurationInterface
      */
     public function setComparisonLevel($level = 'exact')
     {
-        $this->_configuration['ComparisonLevel'] = $level;
+        $this->configuration['ComparisonLevel'] = $level;
     }
 
     /**
@@ -87,7 +87,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getIssuer()
     {
-        return $this->_configuration['Issuer'];
+        return $this->configuration['Issuer'];
     }
 
     /**
@@ -97,7 +97,7 @@ class Configuration implements ConfigurationInterface
      */
     public function setIssuer($issuer = '')
     {
-        $this->_configuration['Issuer'] = $issuer;
+        $this->configuration['Issuer'] = $issuer;
     }
 
     /**
@@ -107,7 +107,7 @@ class Configuration implements ConfigurationInterface
      */
     public function setIdpMetadataUrl($idpMetadataUrl)
     {
-        $this->_configuration['IDPMetadataUrl'] = $idpMetadataUrl;
+        $this->configuration['IDPMetadataUrl'] = $idpMetadataUrl;
     }
 
     /**
@@ -116,7 +116,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getIdpMetadataUrl()
     {
-        return $this->_configuration['IDPMetadataUrl'];
+        return $this->configuration['IDPMetadataUrl'];
     }
 
     /**
@@ -127,7 +127,7 @@ class Configuration implements ConfigurationInterface
     public function setMetadataExpirationTime($metadataExpireTime = 604800)
     {
         if(is_integer($metadataExpireTime)) {
-            $this->_configuration['MetadataExpirationTime'] = $metadataExpireTime;
+            $this->configuration['MetadataExpirationTime'] = $metadataExpireTime;
         }
     }
 
@@ -138,7 +138,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getMetadataExpirationTime()
     {
-        return $this->_configuration['MetadataExpirationTime'];
+        return $this->configuration['MetadataExpirationTime'];
     }
 
 
@@ -148,7 +148,7 @@ class Configuration implements ConfigurationInterface
      */
     public function setSpReturnUrl($spReturnUrl = '')
     {
-        $this->_configuration['SPReturnUrl'] = $spReturnUrl;
+        $this->configuration['SPReturnUrl'] = $spReturnUrl;
     }
 
     /**
@@ -158,7 +158,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getSpReturnUrl()
     {
-        return $this->_configuration['SPReturnUrl'];
+        return $this->configuration['SPReturnUrl'];
     }
 
     /**
@@ -166,7 +166,7 @@ class Configuration implements ConfigurationInterface
      */
     public function setIdpSigningCertificate(Certificate $certificate)
     {
-        $this->_configuration['SigningCertificate'] = $certificate;
+        $this->configuration['SigningCertificate'] = $certificate;
     }
 
     /**
@@ -174,7 +174,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getIdpSigningCertificate()
     {
-        return $this->_configuration['SigningCertificate'];
+        return $this->configuration['SigningCertificate'];
     }
 
     /**
@@ -182,7 +182,7 @@ class Configuration implements ConfigurationInterface
      */
     public function setIdpEncryptionCertificate(Certificate $certificate)
     {
-        $this->_configuration['EncryptionCertificate'] = $certificate;
+        $this->configuration['EncryptionCertificate'] = $certificate;
     }
 
     /**
@@ -190,7 +190,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getIdpEncryptionCertificate()
     {
-        return $this->_configuration['EncryptionCertificate'];
+        return $this->configuration['EncryptionCertificate'];
     }
 
     /**
@@ -200,7 +200,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfiguration()
     {
-        return $this->_configuration;
+        return $this->configuration;
     }
 
     /**
@@ -211,8 +211,8 @@ class Configuration implements ConfigurationInterface
         if(count($configurationData) > 0) {
             foreach($configurationData as $configurationKey => $value)
             {
-                if(array_key_exists($configurationKey, $this->_configuration)) {
-                    $this->_configuration[$configurationKey] = $value;
+                if(array_key_exists($configurationKey, $this->configuration)) {
+                    $this->configuration[$configurationKey] = $value;
                 }
             }
         }
