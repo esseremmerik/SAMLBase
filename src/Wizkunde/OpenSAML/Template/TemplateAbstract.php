@@ -23,7 +23,17 @@ abstract class TemplateAbstract implements TemplateInterface
 
     public function __construct(UniqueID $uniqueId, Timestamp $timestamp)
     {
+        $this->setUniqueId($uniqueId);
+        $this->setTimestamp($timestamp);
+    }
+
+    public function setUniqueId(UniqueID $uniqueId)
+    {
         $this->uniqueId = $uniqueId;
+    }
+
+    public function setTimestamp(Timestamp $timestamp)
+    {
         $this->timestamp = $timestamp;
     }
 }
