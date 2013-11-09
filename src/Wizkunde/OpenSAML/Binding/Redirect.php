@@ -32,9 +32,9 @@ class Redirect extends BindingAbstract
      */
     protected function buildRedirectUrl()
     {
-       $requestTemplate = new RequestTemplate();
-       $requestTemplate->setConfiguration($this->getConfiguration());
+        $requestTemplate = new RequestTemplate();
+        $requestTemplate->setConfiguration($this->getConfiguration());
 
-       return $requestTemplate;
+        return $requestTemplate;
     }
 }
