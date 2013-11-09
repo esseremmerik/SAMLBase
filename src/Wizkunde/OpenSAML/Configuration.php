@@ -126,7 +126,7 @@ class Configuration implements ConfigurationInterface
      */
     public function setMetadataExpirationTime($metadataExpireTime = 604800)
     {
-        if(is_integer($metadataExpireTime)) {
+        if (is_integer($metadataExpireTime)) {
             $this->configuration['MetadataExpirationTime'] = $metadataExpireTime;
         }
     }
@@ -208,10 +208,10 @@ class Configuration implements ConfigurationInterface
      */
     public function setConfiguration(array $configurationData)
     {
-        if(count($configurationData) > 0) {
-            foreach($configurationData as $configurationKey => $value)
+        if (count($configurationData) > 0) {
+            foreach ($configurationData as $configurationKey => $value)
             {
-                if(array_key_exists($configurationKey, $this->configuration)) {
+                if (array_key_exists($configurationKey, $this->configuration)) {
                     $this->configuration[$configurationKey] = $value;
                 }
             }
