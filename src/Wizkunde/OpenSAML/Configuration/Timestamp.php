@@ -52,6 +52,6 @@ class Timestamp
 
     public function __toString()
     {
-        return $this->timestamp->format('Y-m-d\TH:i:s\Z');
+        return (string)$this->timestamp->format('Y-m-d\TH:i:s\Z');
     }
 }
