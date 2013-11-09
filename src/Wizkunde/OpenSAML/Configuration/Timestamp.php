@@ -16,9 +16,9 @@ class Timestamp
      *
      * @return string Get a valid timestamp
      */
-    public  function __construct($time = null)
+    public function __construct($time = null)
     {
-        if($time === null) {
+        if ($time === null) {
             $time = time();
         }
 
@@ -27,11 +27,6 @@ class Timestamp
 
         $UTC = new \DateTimeZone("UTC");
         $this->timestamp->setTimezone($UTC);
-
-//        $timeZone = date_default_timezone_get();
-//        date_default_timezone_set('UTC');
-//        $time = strftime("%Y-%m-%dT%H:%M:%SZ", $time);
-//        date_default_timezone_set($timeZone);
     }
 
     public function getDate()
@@ -52,6 +47,6 @@ class Timestamp
 
     public function __toString()
     {
-        return (string)$this->timestamp->format('Y-m-d\TH:i:s\Z');
+        return $this->timestamp->format('Y-m-d\TH:i:s\Z');
     }
 }
