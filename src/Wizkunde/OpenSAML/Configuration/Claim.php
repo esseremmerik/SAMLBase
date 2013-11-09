@@ -6,8 +6,8 @@ use Wizkunde\OpenSAML\Configuration\ClaimInterface;
 
 class Claim implements ClaimInterface
 {
-    protected $_claimKey = '';
-    protected $_claimValue = '';
+    protected $claimKey = '';
+    protected $claimValue = '';
 
     /**
      * Set the claim key that we retreived from the AuthRequest
@@ -16,7 +16,7 @@ class Claim implements ClaimInterface
      */
     public function setKey($claimKey)
     {
-        $this->_claimKey = $claimKey;
+        $this->claimKey = $claimKey;
     }
 
     /**
@@ -26,7 +26,7 @@ class Claim implements ClaimInterface
      */
     public function getKey()
     {
-        return $this->_claimKey;
+        return $this->claimKey;
     }
 
     /**
@@ -36,7 +36,7 @@ class Claim implements ClaimInterface
      */
     public function getValue()
     {
-        return $this->_claimValue;
+        return $this->claimValue;
     }
 
     /**
@@ -46,6 +46,6 @@ class Claim implements ClaimInterface
      */
     public function setValue($claimValue)
     {
-        $this->_claimValue = $claimValue;
+        $this->claimValue = $claimValue;
     }
 }
