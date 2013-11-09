@@ -9,15 +9,14 @@ class Metadata extends TemplateAbstract
 {
     public function __toString()
     {
-        $timestamp = new Timestamp();
-        $timestamp->add(Timestamp::SECONDS_WEEK);
+        $this->timestamp->add(Timestamp::SECONDS_WEEK);
 
         // @todo some of these template settings like AssertionConsumerService needs to be configurable
 
         $template = <<<METADATA_TEMPLATE
 <?xml version="1.0"?>
 <md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"
-                     validUntil="{$timestamp}"
+                     validUntil="{$this->timestamp}"
                      entityID="{$this->getConfiguration()->getIssuer()}">
     <md:SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
         <md:NameIDFormat>{$this->getConfiguration()->getNameIdFormat()}</md:NameIDFormat>

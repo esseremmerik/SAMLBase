@@ -3,6 +3,8 @@
 namespace Wizkunde\OpenSAML\Binding;
 
 use Wizkunde\OpenSAML\Binding\BindingAbstract;
+use Wizkunde\OpenSAML\Configuration\Timestamp;
+use Wizkunde\OpenSAML\Configuration\UniqueID;
 use Wizkunde\OpenSAML\Template\AuthnRequest as RequestTemplate;
 
 /**
@@ -32,7 +34,7 @@ class Redirect extends BindingAbstract
      */
     protected function buildRedirectUrl()
     {
-        $requestTemplate = new RequestTemplate();
+        $requestTemplate = new RequestTemplate(new UniqueID(), new Timestamp());
         $requestTemplate->setConfiguration($this->getConfiguration());
 
         return $requestTemplate;

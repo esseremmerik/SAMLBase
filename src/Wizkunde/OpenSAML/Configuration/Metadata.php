@@ -3,6 +3,8 @@
 namespace Wizkunde\OpenSAML\Configuration;
 
 use Wizkunde\OpenSAML\Configuration;
+use Wizkunde\OpenSAML\Configuration\UniqueID;
+use Wizkunde\OpenSAML\Configuration\Timestamp;
 use Wizkunde\OpenSAML\Template\Metadata as MetadataTemplate;
 use Wizkunde\OpenSAML\ConfigurationTrait;
 
@@ -24,7 +26,7 @@ class Metadata implements MetadataInterface
      */
     public function getMetadata()
     {
-        $metadataTemplate = new MetadataTemplate();
+        $metadataTemplate = new MetadataTemplate(new UniqueID(), new Timestamp());
         $metadataTemplate->setConfiguration($this->getConfiguration());
 
         return (string)$metadataTemplate;

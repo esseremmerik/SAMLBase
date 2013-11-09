@@ -26,8 +26,6 @@ class ArtifactResolve extends TemplateAbstract
     {
         // @todo set artifact
 
-        $id = new UniqueID();
-        $timestamp = new Timestamp();
         $artifact = '';
         $signature = '';
 
@@ -35,10 +33,10 @@ class ArtifactResolve extends TemplateAbstract
 <samlp:ArtifactResolve
     xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
     xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
-    ID="{$id}"
+    ID="{$this->uniqueId}"
     Version="2.0"
-    IssueInstant="{$timestamp}">
-    {$this->getIssuerTemplate($this->configuration->getIssuer())}
+    IssueInstant="{$this->timestamp}">
+    {$this->getIssuerTemplate($this->getConfiguration()->getIssuer())}
     {$this->getSignatureTemplate($signature)}
     {$this->getArtifactTemplate($artifact)}
   </samlp:ArtifactResolve>

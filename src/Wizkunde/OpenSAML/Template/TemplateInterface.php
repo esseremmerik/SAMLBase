@@ -3,6 +3,8 @@
 namespace Wizkunde\OpenSAML\Template;
 
 use Wizkunde\OpenSAML\Configuration;
+use Wizkunde\OpenSAML\Configuration\Timestamp;
+use Wizkunde\OpenSAML\Configuration\UniqueID;
 
 /**
  * Class TemplateInterface
@@ -13,6 +15,8 @@ use Wizkunde\OpenSAML\Configuration;
  */
 interface TemplateInterface
 {
+    public function __construct(UniqueID $uniqueId, Timestamp $timestamp);
+
     /**
      * Automatically return the template as a string
      *

@@ -17,16 +17,13 @@ class AuthnRequest extends TemplateAbstract
 {
     public function __toString()
     {
-        $id = new UniqueID();
-        $timestamp = new Timestamp();
-
         $request = <<<AUTHNREQUEST
 <samlp:AuthnRequest
     xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
     xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
-    ID="$id"
+    ID="$this->uniqueId"
     Version="2.0"
-    IssueInstant="$timestamp"
+    IssueInstant="$this->timestamp"
     ProtocolBinding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
     AssertionConsumerServiceURL="{$this->getConfiguration()->getSpReturnURL()}">
     <saml:Issuer>{$this->getConfiguration()->getIssuer()}</saml:Issuer>
@@ -45,6 +42,6 @@ AUTHNREQUEST;
         $base64Request = base64_encode($deflatedRequest);
         $encodedRequest = urlencode($base64Request);
 
-        return $this->getConfiguration()->getIdpMetadataUrl() . "?SAMLRequest=" . $encodedRequest;
+        return 'http://idp.wizkunde.nl/simplesaml/saml2/idp/SSOService.php' . "?SAMLRequest=" . $encodedRequest;
     }
 }

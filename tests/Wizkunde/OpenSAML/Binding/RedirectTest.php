@@ -35,6 +35,7 @@ class RedirectTest extends \PHPUnit_Framework_TestCase
     {
         $redirectUrl = $this->binding->request();
 
-        $this->assertStringStartsWith($this->configuration->getIdpMetadataUrl(), $redirectUrl);
+        // @todo: Hardcoded value to be replaced
+        $this->assertStringStartsWith('http://idp.wizkunde.nl/simplesaml/saml2/idp/SSOService.php', $redirectUrl);
     }
 }
