@@ -8,7 +8,7 @@
          verbose="true">
 
     <testsuites>
-        <testsuite name="OpenSAML">
+        <testsuite name="SAML2PHP">
             <directory suffix="Test.php">tests/</directory>
         </testsuite>
     </testsuites>
