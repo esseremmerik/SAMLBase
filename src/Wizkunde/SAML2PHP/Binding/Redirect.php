@@ -34,8 +34,7 @@ class Redirect extends BindingAbstract
      */
     protected function buildRedirectUrl()
     {
-        $requestTemplate = new RequestTemplate('AuthnRequest');
-        $requestTemplate->setConfiguration($this->getConfiguration());
+        $requestTemplate = new RequestTemplate('AuthnRequest', $this->getConfiguration());
 
         return $requestTemplate;
     }

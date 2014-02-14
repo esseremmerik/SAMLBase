@@ -3,8 +3,6 @@
 namespace Wizkunde\SAML2PHP\Template;
 
 use Wizkunde\SAML2PHP\Configuration;
-use Wizkunde\SAML2PHP\Configuration\Timestamp;
-use Wizkunde\SAML2PHP\Configuration\UniqueID;
 
 /**
  * Class TemplateInterface
@@ -15,5 +13,5 @@ use Wizkunde\SAML2PHP\Configuration\UniqueID;
  */
 interface TemplateInterface
 {
-    public function __construct($type = 'AuthnRequest');
+    public function __construct($type = 'AuthnRequest', Configuration $configuration);
 }

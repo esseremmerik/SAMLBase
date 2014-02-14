@@ -4,8 +4,6 @@ namespace Wizkunde\SAML2PHP\Template;
 
 use Wizkunde\SAML2PHP\Configuration;
 use Wizkunde\SAML2PHP\ConfigurationTrait;
-use Wizkunde\SAML2PHP\Configuration\Timestamp;
-use Wizkunde\SAML2PHP\Configuration\UniqueID;
 
 /**
  * Class TemplateAbstract
@@ -26,8 +24,9 @@ abstract class TemplateAbstract implements TemplateInterface
      */
     protected $document = null;
 
-    public function __construct($type = 'AuthnRequest')
+    public function __construct($type = 'AuthnRequest', Configuration $configuration)
     {
+        $this->setConfiguration($configuration);
     }
 
     public function getDocument()

@@ -6,6 +6,7 @@ use Wizkunde\SAML2PHP\Template\Request;
 use Wizkunde\SAML2PHP\Template\Partial\NameIDPolicy;
 use Wizkunde\SAML2PHP\Template\Partial\RequestedAuthnContext;
 use Wizkunde\SAML2PHP\Template\Partial\Issuer;
+use Wizkunde\SAML2PHP\Configuration;
 
 /**
  * Class Request
@@ -16,9 +17,10 @@ use Wizkunde\SAML2PHP\Template\Partial\Issuer;
  */
 class AuthnRequest extends Request
 {
-    public function __construct($type = 'AuthnRequest')
+    public function __construct($type = 'AuthnRequest', Configuration $configuration)
     {
-        parent::__construct('AuthnRequest');
+        parent::__construct('AuthnRequest', $configuration);
+
 
         $rootElement = $this->document->getElementById('samlp:AuthnRequest');
 

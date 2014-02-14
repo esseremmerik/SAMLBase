@@ -2,6 +2,7 @@
 
 namespace Wizkunde\SAML2PHP\Template;
 
+use Wizkunde\SAML2PHP\Configuration;
 use Wizkunde\SAML2PHP\Template\TemplateAbstract;
 
 /**
@@ -13,8 +14,10 @@ use Wizkunde\SAML2PHP\Template\TemplateAbstract;
  */
 class Request extends TemplateAbstract
 {
-    public function __construct($type = 'AuthnRequest')
+    public function __construct($type = 'AuthnRequest', Configuration $configuration)
     {
+        parent::__construct($type, $configuration);
+
         $this->document = new \DOMDocument('1.0', "UTF-8");
 
         $rootElement = $this->document->createElementNS('urn:oasis:names:tc:SAML:2.0:protocol', 'samlp:' . $type, '');
