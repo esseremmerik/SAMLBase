@@ -39,10 +39,7 @@ class AuthnRequest extends Request
             $nameIdPolicy->getNode()
         );
 
-        $authnContext = new RequestedAuthnContext(
-            $this->document,
-            $this->getConfiguration()->getComparisonLevel()
-        );
+        $authnContext = new RequestedAuthnContext($this->document, $this->getConfiguration());
         $rootElement->appendChild(
             $authnContext->getNode()
         );
