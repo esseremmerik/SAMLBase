@@ -2,6 +2,9 @@
 
 namespace Wizkunde\SAML2PHP\Template\Partial;
 
+use Wizkunde\SAML2PHP\Configuration;
+use Wizkunde\SAML2PHP\Template\Partial\PartialAbstract;
+
 /**
  * Class Request
  *
@@ -9,13 +12,10 @@ namespace Wizkunde\SAML2PHP\Template\Partial;
  *
  * @package Wizkunde\SAML2PHP\Template
  */
-class Issuer extends DOMDocument
+class Artifact extends PartialAbstract
 {
-    public function __construct($value, $version = '1.0', $encoding = 'UTF-8')
+    public function __construct(\DOMDocument $document, Configuration $configuration)
     {
-        parent::__construct($version, $encoding);
-
-        $rootElement = $this->createElement('sampl:Artifact', $value);
-        $this->appendChild($rootElement);
+        $this->node = $document->createElement('samlp:Artifact', $configuration->getArtifact());
     }
 }

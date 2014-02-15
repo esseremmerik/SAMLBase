@@ -2,6 +2,9 @@
 
 namespace Wizkunde\SAML2PHP\Template\Partial;
 
+use Wizkunde\SAML2PHP\Configuration;
+use Wizkunde\SAML2PHP\Template\Partial\PartialAbstract;
+
 /**
  * Class Request
  *
@@ -9,22 +12,15 @@ namespace Wizkunde\SAML2PHP\Template\Partial;
  *
  * @package Wizkunde\SAML2PHP\Template
  */
-class RequestedAuthnContext extends DOMDocument
+class RequestedAuthnContext extends PartialAbstract
 {
-    public function __construct($comparisonLevel, $version = '1.0', $encoding = 'UTF-8')
+    public function __construct(\DOMDocument $document, Configuration $configuration)
     {
-        parent::__construct($version, $encoding);
+        $this->node = $document->createElementNS('urn:oasis:names:tc:SAML:2.0:protocol', 'samlp:RequestedAuthnContext', '');
 
-        $rootElement = $this->createElementNS('urn:oasis:names:tc:SAML:2.0:protocol', 'samlp:RequestedAuthnContext', '');
+        $this->node->setAttribute('Comparison', $configuration->getComparisonLevel());
 
-        // Create the Format
-        $comparisonAttribute = $this->document->createAttribute('Comparison');
-        $comparisonAttribute->value = $comparisonLevel;
-        $rootElement->appendChild($comparisonAttribute);
-
-        $subElement = $rootElement->createElementNS('urn:oasis:names:tc:SAML:2.0:assertion', 'saml:AuthnContextClassRef', 'urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport');
-        $rootElement->appendChild($subElement);
-
-        $this->appendChild($rootElement);
+        $subElement = $document->createElementNS('urn:oasis:names:tc:SAML:2.0:assertion', 'saml:AuthnContextClassRef', 'urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport');
+        $this->node->appendChild($subElement);
     }
 }

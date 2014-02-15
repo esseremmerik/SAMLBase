@@ -21,32 +21,30 @@ class AuthnRequest extends Request
     {
         parent::__construct('AuthnRequest', $configuration);
 
-
-        $rootElement = $this->document->getElementById('samlp:AuthnRequest');
+        $rootElement = $this->document->documentElement;
 
         $assertionAttribute = $this->document->createAttribute('AssertionConsumerServiceURL');
         $assertionAttribute->value = $this->getConfiguration()->getSpReturnURL();
         $rootElement->appendChild($assertionAttribute);
 
         // Add the issuer part
+        $issuer = new Issuer($this->document, $this->getConfiguration());
         $rootElement->appendChild(
-            new Issuer(
-                $this->getConfiguration()->getIssuer()
-            )
+            $issuer->getNode()
         );
 
         // Add the NameIDPolicy
+        $nameIdPolicy = new NameIDPolicy($this->document, $this->getConfiguration());
         $rootElement->appendChild(
-            new NameIDPolicy(
-                $this->getConfiguration()->getNameIdFormat(),
-                $this->getConfiguration()->getIssuer()
-            )
+            $nameIdPolicy->getNode()
         );
 
+        $authnContext = new RequestedAuthnContext(
+            $this->document,
+            $this->getConfiguration()->getComparisonLevel()
+        );
         $rootElement->appendChild(
-            new RequestedAuthnContext(
-                $this->getConfiguration()->getComparisonLevel()
-            )
+            $authnContext->getNode()
         );
     }
 }

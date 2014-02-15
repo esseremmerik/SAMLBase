@@ -34,8 +34,17 @@ class Redirect extends BindingAbstract
      */
     protected function buildRedirectUrl()
     {
+        $this->getConfiguration()->setProtocolBinding('urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect');
         $requestTemplate = new RequestTemplate('AuthnRequest', $this->getConfiguration());
 
-        return $requestTemplate;
+        if($this->debug === true) {
+            return $requestTemplate;
+        }
+
+        $deflatedRequest = gzdeflate($requestTemplate);
+        $base64Request = base64_encode($deflatedRequest);
+        $encodedRequest = urlencode($base64Request);
+
+        return $encodedRequest;
     }
 }

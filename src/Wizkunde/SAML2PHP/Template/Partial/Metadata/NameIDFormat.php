@@ -1,6 +1,6 @@
 <?php
 
-namespace Wizkunde\SAML2PHP\Template\Partial;
+namespace Wizkunde\SAML2PHP\Template\Partial\Metadata;
 
 use Wizkunde\SAML2PHP\Configuration;
 use Wizkunde\SAML2PHP\Template\Partial\PartialAbstract;
@@ -12,10 +12,12 @@ use Wizkunde\SAML2PHP\Template\Partial\PartialAbstract;
  *
  * @package Wizkunde\SAML2PHP\Template
  */
-class Issuer extends PartialAbstract
+class NameIDFormat extends PartialAbstract
 {
     public function __construct(\DOMDocument $document, Configuration $configuration)
     {
-        $this->node = $document->createElementNS('urn:oasis:names:tc:SAML:2.0:assertion', 'saml:Issuer', $configuration->getIssuer());
+        $this->node = $document->createElement('md:NameIDFormat', $configuration->getNameIdFormat());
+
+
     }
 }

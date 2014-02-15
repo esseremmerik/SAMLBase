@@ -36,12 +36,6 @@ abstract class TemplateAbstract implements TemplateInterface
 
     public function __toString()
     {
-        $request = $this->document->saveXml();
-
-        $deflatedRequest = gzdeflate($request);
-        $base64Request = base64_encode($deflatedRequest);
-        $encodedRequest = urlencode($base64Request);
-
-        return $encodedRequest;
+        return  $this->document->saveXml();
     }
 }

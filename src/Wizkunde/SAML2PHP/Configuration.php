@@ -236,6 +236,39 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
+     * @param set the protocol binding
+     */
+    public function setProtocolBinding($binding)
+    {
+        $this->configuration['ProtocolBinding'] = $binding;
+    }
+
+    /**
+     * @return string protocol binding
+     */
+    public function getProtocolBinding()
+    {
+        return $this->configuration['ProtocolBinding'];
+    }
+
+    /**
+     * @return boolean Force Reauthentication
+     */
+    public function getForceAuthn()
+    {
+        return 'false';
+    }
+
+    /**
+     * @return boolean Check if this is passive
+     */
+    public function getIsPassive()
+    {
+        return 'false';
+    }
+
+
+    /**
      * Get the Configuration data
      *
      * @return mixed array with configuraion data

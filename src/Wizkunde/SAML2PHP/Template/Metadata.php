@@ -2,31 +2,37 @@
 
 namespace Wizkunde\SAML2PHP\Template;
 
-use Wizkunde\SAML2PHP\Template\TeplateAbstract;
-use Wizkunde\SAML2PHP\Configuration\Timestamp;
+use Wizkunde\SAML2PHP\Configuration;
+use Wizkunde\SAML2PHP\Template\Partial\Metadata\SPSSODescriptor;
+use Wizkunde\SAML2PHP\Template\TemplateAbstract;
 
 class Metadata extends TemplateAbstract
 {
-    public function __toString()
+    public function __construct($type = 'EntityDescriptor', Configuration $configuration)
     {
-        $this->timestamp->add(Timestamp::SECONDS_WEEK);
+        parent::__construct($type, $configuration);
 
-        // @todo some of these template settings like AssertionConsumerService needs to be configurable
+        $this->document = new \DOMDocument('1.0', "UTF-8");
 
-        $template = <<<METADATA_TEMPLATE
-<?xml version="1.0"?>
-<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"
-                     validUntil="{$this->timestamp}"
-                     entityID="{$this->getConfiguration()->getIssuer()}">
-    <md:SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
-        <md:NameIDFormat>{$this->getConfiguration()->getNameIdFormat()}</md:NameIDFormat>
-        <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
-                                     Location="{$this->getConfiguration()->getSpReturnUrl()}"
-                                     index="1"/>
-    </md:SPSSODescriptor>
-</md:EntityDescriptor>
-METADATA_TEMPLATE;
+        $rootElement = $this->document->createElementNS('urn:oasis:names:tc:SAML:2.0:metadata', 'md:' . $type, '');
 
-        return $template;
+        // Create the validUntil
+        $this->getConfiguration()->getTimestamp()->add(Timestamp::SECONDS_WEEK);
+        $validAttribute = $this->document->createAttribute('validUntil');
+        $validAttribute->value = $this->getConfiguration()->getTimestamp();
+        $rootElement->appendChild($validAttribute);
+
+        // Create EntityID
+        $entityAttribute = $this->document->createAttribute('entityID');
+        $entityAttribute->value = $this->getConfiguration()->getIssuer();
+        $rootElement->appendChild($entityAttribute);
+
+        // Add the issuer part
+        $descriptorNode = new SPSSODescriptor($this->document, $this->getConfiguration());
+        $rootElement->appendChild(
+            $descriptorNode->getNode()
+        );
+
+        $this->document->appendChild($rootElement);
     }
 }
