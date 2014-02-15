@@ -11,8 +11,6 @@ function SAML2PHP_Autoload($classname) {
 spl_autoload_register('SAML2PHP_Autoload');
 
 $binding = new Wizkunde\SAML2PHP\Binding\Redirect();
-$binding->setDebug(true);
-
 $cert = new Wizkunde\SAML2PHP\Configuration\Certificate('testcertificaat');
 
 $configuration = new Wizkunde\SAML2PHP\Configuration(array(
@@ -32,5 +30,3 @@ $configuration = new Wizkunde\SAML2PHP\Configuration(array(
 
 $binding->setConfiguration($configuration);
 $redirectUrl = $binding->request();
-
-var_dump($redirectUrl);die;

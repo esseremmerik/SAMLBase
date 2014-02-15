@@ -11,18 +11,6 @@ abstract class BindingAbstract implements BindingInterface
     use ConfigurationTrait;
 
     /**
-     * @var bool debug set to true will not compress the output
-     */
-    protected $debug = false;
-
-    /**
-     * @param bool $debug Enable debugging of the binding
-     */
-    public function setDebug($debug = false) {
-        $this->debug = $debug;
-    }
-
-    /**
      * Do a request with the current binding
      */
     public function request()
