@@ -1,5 +1,6 @@
 <?php
 
+var_dump($_POST);die;
 include_once('./vendor/autoload.php');
 
 function SAML2PHP_Autoload($classname) {
@@ -15,7 +16,7 @@ $cert = new Wizkunde\SAML2PHP\Configuration\Certificate('testcertificaat');
 
 $configuration = new Wizkunde\SAML2PHP\Configuration(array(
         'NameID'                => 'testNameId',
-        'Issuer'                    => 'Magento',
+        'Issuer'                    => 'http://saml.dev.wizkunde.nl/',
         'IDPMetadataUrl'            => 'http://idp.wizkunde.nl/simplesaml/saml2/idp/metadata.php',
         'MetadataExpirationTime'    => 604800,
         'SPReturnUrl'               => 'http://return.wizkunde.nl/',
@@ -30,3 +31,5 @@ $configuration = new Wizkunde\SAML2PHP\Configuration(array(
 
 $binding->setConfiguration($configuration);
 $redirectUrl = $binding->request();
+
+header('Location: ' . $redirectUrl);

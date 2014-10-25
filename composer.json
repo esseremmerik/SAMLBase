@@ -3,7 +3,8 @@
     "minimum-stability":"dev",
     "require": {
         "symfony/dependency-injection": "~2.3",
-        "fr3d/xmlseclibs": "dev-hotfix/validation-references"
+        "fr3d/xmlseclibs": "dev-hotfix/validation-references",
+        "guzzle/guzzle": "3.9.*@dev"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"

@@ -18,14 +18,19 @@ class Redirect extends BindingAbstract
     protected $request = '';
 
     /**
+     * The http carrier to carry the quest
+     */
+    protected $client = null;
+
+    /**
      * Do a request with the current binding
      */
     public function request()
     {
         $redirectUrl = $this->buildRedirectUrl();
-
-        return (string)$redirectUrl;
+        header('Location: ' . (string)$redirectUrl);
     }
+
 
     /**
      * Build the Redirect URL, using the template thats provided
@@ -42,5 +47,21 @@ class Redirect extends BindingAbstract
 
         // @todo make this dynamic
         return 'http://idp.wizkunde.nl/simplesaml/saml2/idp/SSOService.php?SAMLRequest=' . $encodedRequest;
+    }
+
+    /**
+     * Set the HTTP carrier client
+     */
+    public function setClient($client)
+    {
+        $this->client = $client;
+    }
+
+    /**
+     * Get the HTTP carrier client
+     */
+    public function getClient()
+    {
+        return $this->client;
     }
 }
