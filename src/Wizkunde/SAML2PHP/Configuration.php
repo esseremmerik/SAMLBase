@@ -28,6 +28,8 @@ class Configuration implements ConfigurationInterface
         'SigningCertificate'        => '',
         'EncryptionCertificate'     => '',
         'ComparisonLevel'           => 'exact',
+        'ForceAuthn'                => 'false',
+        'isPassive'                 => 'false',
         'UniqueID'                  => '',
         'Timestamp'                 => ''
     );
@@ -256,7 +258,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getForceAuthn()
     {
-        return 'false';
+        return $this->configuration['ForceAuthn'];
     }
 
     /**
@@ -264,7 +266,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getIsPassive()
     {
-        return 'false';
+        return $this->configuration['isPassive'];
     }
 
 
