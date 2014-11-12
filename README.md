@@ -36,3 +36,7 @@ Thats all!
 
     $binding->setConfiguration($configuration);
     $redirectUrl = $binding->request();
+
+## License information
+This code is released under the GPL v3 license
+Info about the license can be found here:  http://www.gnu.org/copyleft/gpl.html
