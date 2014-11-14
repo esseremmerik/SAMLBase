@@ -15,6 +15,8 @@ Thats all!
 
 ## Current Status (Last updated 14-11-2014)
 
+    There is more to do than what i've listed here, but this is to get the framework started
+
     DONE
         1. Resolve metadata from an IDP into a PHP array that we can work with
         2. Do a AuthNRequest via Redirect Binding
@@ -33,6 +35,7 @@ Thats all!
                 4.2.2 Classes might best be mapped as some form of service / helper, instead of calling them directly
                 4.2.3 In this way you can remove them, mock them, change them around. But how?
             4.3 Main goal should be that now there is to much tight coupling between templates, it needs to go
+        5. Give the library a better name, SAML2PHP is lame.
 
 ##Example index.php to test it
 
