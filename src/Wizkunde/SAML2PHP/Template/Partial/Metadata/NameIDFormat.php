@@ -16,7 +16,7 @@ class NameIDFormat extends PartialAbstract
 {
     public function __construct(\DOMDocument $document, Configuration $configuration)
     {
-        $this->node = $document->createElement('md:NameIDFormat', $configuration->getNameIdFormat());
+        $this->node = $document->createElement('md:NameIDFormat', $configuration->get('NameIDFormat'));
 
 
     }

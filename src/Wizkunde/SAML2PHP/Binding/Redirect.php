@@ -15,22 +15,24 @@ use Wizkunde\SAML2PHP\Template\AuthnRequest as RequestTemplate;
  */
 class Redirect extends BindingAbstract
 {
-    protected $request = '';
-
     /**
-     * The http carrier to carry the quest
+     * The location in the metadata that has the current bindings information
+     * @var string
      */
-    protected $client = null;
+    protected $metadataBindingLocation = 'SSORedirect';
 
     /**
      * Do a request with the current binding
      */
     public function request()
     {
+        parent::request();
+
+        $this->getConfiguration()->set('ProtocolBinding', self::BINDING_REDIRECT);
+
         $redirectUrl = $this->buildRedirectUrl();
         header('Location: ' . (string)$redirectUrl);
     }
-
 
     /**
      * Build the Redirect URL, using the template thats provided
@@ -38,30 +40,12 @@ class Redirect extends BindingAbstract
      */
     protected function buildRedirectUrl()
     {
-        $this->getConfiguration()->setProtocolBinding('urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect');
         $requestTemplate = new RequestTemplate('AuthnRequest', $this->getConfiguration());
 
         $deflatedRequest = gzdeflate($requestTemplate);
         $base64Request = base64_encode($deflatedRequest);
         $encodedRequest = urlencode($base64Request);
 
-        // @todo make this dynamic
-        return 'http://idp.wizkunde.nl/simplesaml/saml2/idp/SSOService.php?SAMLRequest=' . $encodedRequest;
-    }
-
-    /**
-     * Set the HTTP carrier client
-     */
-    public function setClient($client)
-    {
-        $this->client = $client;
-    }
-
-    /**
-     * Get the HTTP carrier client
-     */
-    public function getClient()
-    {
-        return $this->client;
+        return $this->getTargetUrl() . '?SAMLRequest=' . $encodedRequest;
     }
 }

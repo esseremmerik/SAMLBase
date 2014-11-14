@@ -19,12 +19,12 @@ class Metadata extends TemplateAbstract
         // Create the validUntil
         $this->getConfiguration()->getTimestamp()->add(Timestamp::SECONDS_WEEK);
         $validAttribute = $this->document->createAttribute('validUntil');
-        $validAttribute->value = $this->getConfiguration()->getTimestamp();
+        $validAttribute->value = $this->getConfiguration()->get('Timestamp');
         $rootElement->appendChild($validAttribute);
 
         // Create EntityID
         $entityAttribute = $this->document->createAttribute('entityID');
-        $entityAttribute->value = $this->getConfiguration()->getIssuer();
+        $entityAttribute->value = $this->getConfiguration()->get('Issuer');
         $rootElement->appendChild($entityAttribute);
 
         // Add the issuer part

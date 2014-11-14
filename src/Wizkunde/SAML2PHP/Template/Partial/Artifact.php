@@ -16,6 +16,6 @@ class Artifact extends PartialAbstract
 {
     public function __construct(\DOMDocument $document, Configuration $configuration)
     {
-        $this->node = $document->createElement('samlp:Artifact', $configuration->getArtifact());
+        $this->node = $document->createElement('samlp:Artifact', $configuration->get('Artifact'));
     }
 }

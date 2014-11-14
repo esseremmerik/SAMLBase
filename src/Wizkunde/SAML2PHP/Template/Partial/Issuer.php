@@ -16,6 +16,6 @@ class Issuer extends PartialAbstract
 {
     public function __construct(\DOMDocument $document, Configuration $configuration)
     {
-        $this->node = $document->createElementNS('urn:oasis:names:tc:SAML:2.0:assertion', 'saml:Issuer', $configuration->getIssuer());
+        $this->node = $document->createElementNS('urn:oasis:names:tc:SAML:2.0:assertion', 'saml:Issuer', $configuration->get('Issuer'));
     }
 }

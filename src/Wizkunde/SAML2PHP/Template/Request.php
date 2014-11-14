@@ -24,7 +24,7 @@ class Request extends TemplateAbstract
 
         // Create the Unique ID
         $idAttribute = $this->document->createAttribute('ID');
-        $idAttribute->value = $this->getConfiguration()->getUniqueID();
+        $idAttribute->value = $this->getConfiguration()->get('UniqueID');
         $rootElement->appendChild($idAttribute);
 
         // Create the Version
@@ -34,21 +34,21 @@ class Request extends TemplateAbstract
 
         // Create the IssueInstant
         $issueInstantAttribute = $this->document->createAttribute('IssueInstant');
-        $issueInstantAttribute->value = $this->getConfiguration()->getTimestamp();
+        $issueInstantAttribute->value = $this->getConfiguration()->get('Timestamp');
         $rootElement->appendChild($issueInstantAttribute);
 
         // Create ForceAuthn (force reauthentication)
         $forceAttribute = $this->document->createAttribute('ForceAuthn');
-        $forceAttribute->value = $this->getConfiguration()->getForceAuthn();
+        $forceAttribute->value = $this->getConfiguration()->get('ForceAuthn');
         $rootElement->appendChild($forceAttribute);
 
         // Create IsPassive
         $passiveAttribute = $this->document->createAttribute('IsPassive');
-        $passiveAttribute->value = $this->getConfiguration()->getIsPassive();
+        $passiveAttribute->value = $this->getConfiguration()->get('IsPassive');
         $rootElement->appendChild($passiveAttribute);
 
         $bindingAttribute = $this->document->createAttribute('ProtocolBinding');
-        $bindingAttribute->value = $this->getConfiguration()->getProtocolBinding();
+        $bindingAttribute->value = $this->getConfiguration()->get('ProtocolBinding');
         $rootElement->appendChild($bindingAttribute);
 
         $this->document->appendChild($rootElement);

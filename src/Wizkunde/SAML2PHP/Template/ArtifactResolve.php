@@ -53,7 +53,7 @@ class ArtifactResolve extends Request
     ID="{$this->uniqueId}"
     Version="2.0"
     IssueInstant="{$this->timestamp}">
-    {$this->getIssuerTemplate($this->getConfiguration()->getIssuer())}
+    {$this->getIssuerTemplate($this->getConfiguration()->get('Issuer'))}
     {$this->getSignatureTemplate($signature)}
     {$this->getArtifactTemplate($artifact)}
   </samlp:ArtifactResolve>

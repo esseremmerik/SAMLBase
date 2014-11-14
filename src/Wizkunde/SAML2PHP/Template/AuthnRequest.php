@@ -24,7 +24,7 @@ class AuthnRequest extends Request
         $rootElement = $this->document->documentElement;
 
         $assertionAttribute = $this->document->createAttribute('AssertionConsumerServiceURL');
-        $assertionAttribute->value = $this->getConfiguration()->getSpReturnURL();
+        $assertionAttribute->value = $this->getConfiguration()->get('SPReturnUrl');
         $rootElement->appendChild($assertionAttribute);
 
         // Add the issuer part

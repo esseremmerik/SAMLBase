@@ -17,8 +17,8 @@ class NameIDPolicy extends PartialAbstract
     public function __construct(\DOMDocument $document, Configuration $configuration)
     {
         $this->node = $document->createElementNS('urn:oasis:names:tc:SAML:2.0:protocol', 'samlp:NameIDPolicy', '');
-        $this->node->setAttribute('Format', $configuration->getNameIdFormat());
-        $this->node->setAttribute('SPNameQualifier', $configuration->getIssuer());
+        $this->node->setAttribute('Format', $configuration->get('NameIDFormat'));
+        $this->node->setAttribute('SPNameQualifier', $configuration->get('Issuer'));
         $this->node->setAttribute('AllowCreate', true);
     }
 }

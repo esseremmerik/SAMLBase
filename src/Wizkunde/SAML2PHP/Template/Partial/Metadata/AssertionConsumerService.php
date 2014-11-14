@@ -17,8 +17,8 @@ class AssertionConsumerService extends PartialAbstract
     public function __construct(\DOMDocument $document, Configuration $configuration)
     {
         $this->node = $document->createElement('md:AssertionConsumerService', '');
-        $this->node->setAttribute('Binding', $configuration->getProtocolBinding());
-        $this->node->setAttribute('Location', $this->getConfiguration()->getSpReturnUrl());
+        $this->node->setAttribute('Binding', $configuration->get('ProtocolBinding'));
+        $this->node->setAttribute('Location', $this->getConfiguration()->get('SPReturnUrl'));
         $this->node->setAttribute('Index', '1');
     }
 }

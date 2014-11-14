@@ -15,26 +15,28 @@ use Wizkunde\SAML2PHP\Template\AuthnRequest as RequestTemplate;
  */
 class Post extends BindingAbstract
 {
-    protected $request = '';
-
     /**
-     * The http carrier to carry the quest
+     * The location in the metadata that has the current bindings information
+     * @var string
      */
-    protected $client = null;
+    protected $metadataBindingLocation = 'SSOPOST';
 
     /**
      * Do a request with the current binding
      */
     public function request()
     {
-        // Todo make dynamic, by resolving metadata
-        $url = 'http://idp.wizkunde.nl/simplesaml/saml2/idp/SSOService.php';
+        parent::request();
+
+        $this->getConfiguration()->set('ProtocolBinding', self::BINDING_POST);
 
         echo '<html><head></head><body onload="document.postform.submit();">';
-        $form = $this->buildPostForm($url);
+        $form = $this->buildPostForm($this->getTargetUrl());
         echo $form;
         echo '</body></html>';
         exit;
+
+        header('Location: ' . (string)$redirectUrl);
     }
 
     protected function buildPostForm($url = '')
@@ -52,7 +54,6 @@ class Post extends BindingAbstract
      */
     protected function buildPostRequest()
     {
-        $this->getConfiguration()->setProtocolBinding('urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST');
         $requestTemplate = new RequestTemplate('AuthnRequest', $this->getConfiguration());
 
         $deflatedRequest = gzdeflate($requestTemplate);
@@ -60,21 +61,5 @@ class Post extends BindingAbstract
         $encodedRequest = urlencode($base64Request);
 
         return $encodedRequest;
-    }
-
-    /**
-     * Set the HTTP carrier client
-     */
-    public function setClient($client)
-    {
-        $this->client = $client;
-    }
-
-    /**
-     * Get the HTTP carrier client
-     */
-    public function getClient()
-    {
-        return $this->client;
     }
 }
