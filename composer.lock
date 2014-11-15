@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "d0581b6b4beb84eccc810219b85942db76ab4a33"
+                "reference": "c76c5009860420940c1560ebdeabeecbe454ef01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/d0581b6b4beb84eccc810219b85942db76ab4a33",
-                "reference": "d0581b6b4beb84eccc810219b85942db76ab4a33",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/c76c5009860420940c1560ebdeabeecbe454ef01",
+                "reference": "c76c5009860420940c1560ebdeabeecbe454ef01",
                 "shasum": ""
             },
             "require": {
@@ -62,7 +62,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2014-11-08 21:55:50"
+            "time": "2014-11-15 18:10:24"
         },
         {
             "name": "guzzlehttp/ringphp",

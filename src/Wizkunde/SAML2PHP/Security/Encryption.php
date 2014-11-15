@@ -2,13 +2,27 @@
 
 namespace Wizkunde\SAML2PHP\Security;
 
-use Wizkunde\SAML2PHP\ConfigurationTrait;
-
 class Encryption extends \XMLSecEnc
 {
-    use ConfigurationTrait;
+    /**
+     * Encrypt data with our certificate before we do anything with it
+     *
+     * @param $string
+     */
+    public function encrypt($string, $privateKey) {
+        $document = new \DOMDocument($string);
 
-    public function decrypt($string) {
+
+    }
+
+    /**
+     * Decrypt incomming data with our certificate
+     *
+     * @param $string
+     * @return \DOMDocument
+     * @throws \Exception
+     */
+    public function decrypt($string, $publicKey) {
         $document = new \DOMDocument($string);
         $encryptedData = $this->locateEncryptedData($document);
 
@@ -30,13 +44,13 @@ class Encryption extends \XMLSecEnc
         if ($objKeyInfo = $this->locateKeyInfo($objKey)) {
             if ($objKeyInfo->isEncrypted) {
                 $objencKey = $objKeyInfo->encryptedCtx;
-                $objKeyInfo->loadKey($this->getConfiguration()->get('EncryptionCertificate'));
+                $objKeyInfo->loadKey($publicKey);
                 $key = $objencKey->decryptKey($objKeyInfo);
             }
         }
 
         if (! $objKey->key && empty($key)) {
-            $objKey->loadKey($this->getConfiguration()->get('EncryptionCertificate'));
+            $objKey->loadKey($publicKey);
         }
 
         if (empty($objKey->key)) {
@@ -46,8 +60,8 @@ class Encryption extends \XMLSecEnc
         $token = NULL;
         if ($decrypt = $this->decryptNode($objKey, TRUE)) {
             $output = NULL;
-            if ($decrypt instanceof DOMNode) {
-                if ($decrypt instanceof DOMDocument) {
+            if ($decrypt instanceof \DOMNode) {
+                if ($decrypt instanceof \DOMDocument) {
                     $output = $decrypt->saveXML();
                 } else {
                     $output = $decrypt->ownerDocument->saveXML();

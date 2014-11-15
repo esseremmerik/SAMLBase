@@ -29,8 +29,7 @@ class AuthnResponse
         $responseData =  base64_decode($response);
 
         $encryption = new Encryption();
-        $encryption->setConfiguration($this->getConfiguration());
-        $decryptedDocument = $encryption->decrypt($responseData);
+        $decryptedDocument = $encryption->decrypt($responseData, $this->getConfiguration()->get('EncryptionCertificate'));
 
         $signature = new Signature();
         $signature->setConfiguration($this->getConfiguration());
