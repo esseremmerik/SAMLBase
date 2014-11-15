@@ -12,15 +12,10 @@ class IDPMetadata extends MetadataAbstract
      */
     protected $xpathMappings = array(
         'Signature' => array(
-            '//ds:Signature/ds:SignedInfo/ds:Reference/ds:DigestMethod' => array(
+            '//ds:Signature/ds:SignedInfo/ds:SignatureMethod' => array(
                 'Attributes'    => array(
-                    'Algorithm' => 'DigestMethod'
+                    'Algorithm' => 'SigningMethod'
                 ),
-            ),
-
-            // Digest Value of the digest we made
-            '//ds:Signature/ds:SignedInfo/ds:Reference/ds:DigestValue' => array(
-                'Value' => 'DigestValue'
             ),
 
             '//ds:Signature/ds:SignatureValue' => array(
@@ -29,6 +24,17 @@ class IDPMetadata extends MetadataAbstract
 
             '//ds:Signature/ds:KeyInfo/ds:X509Data/ds:X509Certificate' => array(
                 'Value' => 'Certificate'
+            ),
+        ),
+        'Encryption' => array(
+            '//ds:Signature/ds:SignedInfo/ds:Reference/ds:DigestMethod' => array(
+                'Attributes'    => array(
+                    'Algorithm' => 'DigestMethod'
+                ),
+            ),
+            // Digest Value of the digest we made
+            '//ds:Signature/ds:SignedInfo/ds:Reference/ds:DigestValue' => array(
+                'Value' => 'DigestValue'
             ),
         ),
 

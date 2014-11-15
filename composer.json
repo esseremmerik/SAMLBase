@@ -3,7 +3,7 @@
     "minimum-stability":"dev",
     "require": {
         "symfony/dependency-injection": "~2.3",
-        "fr3d/xmlseclibs": "dev-hotfix/validation-references",
+        "xmlseclibs/xmlseclibs": "dev-master",
         "guzzlehttp/guzzle": "5.0.*@dev"
     },
     "require-dev": {

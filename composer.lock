@@ -4,49 +4,8 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "de16555c6d29bedfea46876e9c06b8bb",
+    "hash": "239dd67cce75402730ea4bc5deac46ae",
     "packages": [
-        {
-            "name": "fr3d/xmlseclibs",
-            "version": "dev-hotfix/validation-references",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Maks3w/xmlseclibs.git",
-                "reference": "cb6ef914c79a3afc71a58baabb5ad7cd7661e25e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Maks3w/xmlseclibs/zipball/cb6ef914c79a3afc71a58baabb5ad7cd7661e25e",
-                "reference": "cb6ef914c79a3afc71a58baabb5ad7cd7661e25e",
-                "shasum": ""
-            },
-            "provide": {
-                "cdatazone/xmlseclibs": "1.3.0"
-            },
-            "suggest": {
-                "ext/mcrypt": "MCrypt extension",
-                "ext/openssl": "OpenSSL extension"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "xmlseclibs.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": "Unofficial git fork of http://code.google.com/p/xmlseclibs/",
-            "homepage": "http://code.google.com/p/xmlseclibs/",
-            "keywords": [
-                "security",
-                "signature",
-                "xml",
-                "xmldsig"
-            ],
-            "time": "2013-04-13 20:04:15"
-        },
         {
             "name": "guzzlehttp/guzzle",
             "version": "dev-master",
@@ -305,6 +264,39 @@
             "description": "Symfony DependencyInjection Component",
             "homepage": "http://symfony.com",
             "time": "2014-11-10 18:00:54"
+        },
+        {
+            "name": "xmlseclibs/xmlseclibs",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xmlseclibs/xmlseclibs.git",
+                "reference": "2e1b798bdf965007b2454ad5023d8506a6345882"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xmlseclibs/xmlseclibs/zipball/2e1b798bdf965007b2454ad5023d8506a6345882",
+                "reference": "2e1b798bdf965007b2454ad5023d8506a6345882",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "xmlseclibs.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Francis Gonzales",
+                    "email": "fgonzalestello91@gmail.com"
+                }
+            ],
+            "description": "This is a fork of xmlseclibs with some improvements",
+            "time": "2014-10-13 20:11:36"
         }
     ],
     "packages-dev": [
@@ -733,7 +725,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "fr3d/xmlseclibs": 20,
+        "xmlseclibs/xmlseclibs": 20,
         "guzzlehttp/guzzle": 20
     },
     "prefer-stable": false,

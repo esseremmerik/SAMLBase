@@ -37,6 +37,8 @@ Thats all!
                 5.2.3 In this way you can remove them, mock them, change them around. But how?
             5.3 Main goal should be that now there is to much tight coupling between templates, it needs to go
         6. Give the library a better name, SAML2PHP is lame.
+        7. Support persistency of the tokens
+        8. Unit Tests
 
 ##Example index.php to test it
 
