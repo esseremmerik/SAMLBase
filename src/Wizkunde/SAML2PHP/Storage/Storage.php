@@ -50,13 +50,14 @@ class Storage
      */
     public function persist(\DOMDocument $document)
     {
-        if($element = $document->xpath('//saml:AuthnStatement')) {
+        if ($element = $document->xpath('//saml:AuthnStatement')) {
             $data = array(
-                'Token' => (string) $element->attributes()->SessionIndex,
-                'Validity'  => (string) $element->attributes()->SessionNotOnOrAfter
+                'Token' => (string)$element->attributes()->SessionIndex,
+                'Validity' => (string)$element->attributes()->SessionNotOnOrAfter
             );
         }
 
-        var_dump($data);die;
+        var_dump($data);
+        die;
     }
 }

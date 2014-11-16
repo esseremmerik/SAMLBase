@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "239dd67cce75402730ea4bc5deac46ae",
+    "hash": "fd5f3067f8b0a0a87c53b5d27db17d78",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -70,12 +70,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/RingPHP.git",
-                "reference": "f22848701c46f96f95a455e8659a0d4ea63e9084"
+                "reference": "e3b00e43b279606a51493b3d5c9c5c2598cd659e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/f22848701c46f96f95a455e8659a0d4ea63e9084",
-                "reference": "f22848701c46f96f95a455e8659a0d4ea63e9084",
+                "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/e3b00e43b279606a51493b3d5c9c5c2598cd659e",
+                "reference": "e3b00e43b279606a51493b3d5c9c5c2598cd659e",
                 "shasum": ""
             },
             "require": {
@@ -112,7 +112,7 @@
                     "homepage": "https://github.com/mtdowling"
                 }
             ],
-            "time": "2014-11-05 00:36:55"
+            "time": "2014-11-16 02:36:38"
         },
         {
             "name": "guzzlehttp/streams",
@@ -264,6 +264,63 @@
             "description": "Symfony DependencyInjection Component",
             "homepage": "http://symfony.com",
             "time": "2014-11-10 18:00:54"
+        },
+        {
+            "name": "twig/twig",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twigphp/Twig.git",
+                "reference": "b87cf88f88feee256c1e1ca85ec6677f38fcc238"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/b87cf88f88feee256c1e1ca85ec6677f38fcc238",
+                "reference": "b87cf88f88feee256c1e1ca85ec6677f38fcc238",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.16-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Twig_": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Armin Ronacher",
+                    "email": "armin.ronacher@active-4.com",
+                    "role": "Project Founder"
+                },
+                {
+                    "name": "Twig Team",
+                    "homepage": "http://twig.sensiolabs.org/contributors",
+                    "role": "Contributors"
+                }
+            ],
+            "description": "Twig, the flexible, fast, and secure template language for PHP",
+            "homepage": "http://twig.sensiolabs.org",
+            "keywords": [
+                "templating"
+            ],
+            "time": "2014-11-10 14:48:15"
         },
         {
             "name": "xmlseclibs/xmlseclibs",
@@ -726,7 +783,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "xmlseclibs/xmlseclibs": 20,
-        "guzzlehttp/guzzle": 20
+        "guzzlehttp/guzzle": 20,
+        "twig/twig": 20
     },
     "prefer-stable": false,
     "platform": [],

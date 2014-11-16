@@ -16,7 +16,8 @@ class AuthnResponse
      *
      * @param Configuration $configuration
      */
-    public function __construct(Configuration $configuration) {
+    public function __construct(Configuration $configuration)
+    {
         $this->setConfiguration($configuration);
     }
 
@@ -25,8 +26,9 @@ class AuthnResponse
      *
      * @param $response
      */
-    public function decode($response) {
-        $responseData =  base64_decode($response);
+    public function decode($response)
+    {
+        $responseData = base64_decode($response);
 
         $encryption = new Encryption();
         $decryptedDocument = $encryption->decrypt($responseData, $this->getConfiguration()->get('EncryptionCertificate'));

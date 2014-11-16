@@ -2,11 +2,13 @@
 
 namespace Wizkunde\SAML2PHP\Security;
 
+use Wizkunde\SAML2PHP\Certificate\Certificate;
 use Wizkunde\SAML2PHP\ConfigurationTrait;
 
 class Signature extends \XMLSecurityDSig
 {
-    use ConfigurationTrait;
+    protected $certificate = null;
+    protected $signingAlgorithm = '';
 
     public function verifyDOMDocument($document)
     {
@@ -20,6 +22,42 @@ class Signature extends \XMLSecurityDSig
         }
 
         $this->setCanonicalMethod(self::C14N);
-        $this->addReference($document, $this->getConfiguration()->get('SigningAlgorithm'), array('http://www.w3.org/2000/09/xmldsig#enveloped-signature', XMLSecurityDSig::C14N), array('force_uri' => true));
+        $this->addReference($document, $this->getSigningAlgorithm(), array('http://www.w3.org/2000/09/xmldsig#enveloped-signature', \XMLSecurityDSig::C14N), array('force_uri' => true));
+    }
+
+    public function setCertificate(Certificate $certificate)
+    {
+        $this->certificate = $certificate;
+    }
+
+    public function getCertificate()
+    {
+        return $this->certificate;
+    }
+
+    public function setSigningAlgorithm($algorithm)
+    {
+        $this->signingAlgorithm = $algorithm;
+    }
+
+    public function getSigningAlgorithm()
+    {
+        return $this->signingAlgorithm;
+    }
+
+    /**
+     * Add the signature to the template
+     *
+     * @param \DOMElement $element
+     * @return bool
+     * @throws \Exception
+     */
+    public function addSignature(\DOMDocument $document)
+    {
+        $sign = new Signature();
+        $sign->setCanonicalMethod(\XMLSecurityDSig::EXC_C14N_COMMENTS);
+        $sign->addReference($document, \XMLSecurityDSig::SHA1, array('http://www.w3.org/2000/09/xmldsig#enveloped-signature'));
+        $sign->add509Cert($this->getCertificate()->getPublicKey()->getX509Certificate());
+        $sign->sign($this->getCertificate()->getPrivateKey(), $document->firstChild);
     }
 }

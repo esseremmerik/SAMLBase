@@ -3,13 +3,24 @@
 namespace Wizkunde\SAML2PHP\Binding;
 
 use Wizkunde\SAML2PHP\Binding\BindingInterface;
-use Wizkunde\SAML2PHP\ConfigurationTrait;
 use Wizkunde\SAML2PHP\Security\Signature;
 
 abstract class BindingAbstract implements BindingInterface
 {
     const BINDING_REDIRECT = 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect';
     const BINDING_POST = 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST';
+
+    /**
+     * @var Binding that we use for the current protocol
+     */
+    protected $protocolBinding = null;
+
+    /**
+     * Contains the dependency injection container
+     *
+     * @var null
+     */
+    protected $container = null;
 
     /**
      * The location in the metadata that has the current bindings information
@@ -29,10 +40,8 @@ abstract class BindingAbstract implements BindingInterface
      */
     protected $targetUrl = null;
 
-    // Allow the use of configuration
-    use ConfigurationTrait;
-
-    public function setMetadata($metadata) {
+    public function setMetadata($metadata)
+    {
         $this->metadata = $metadata;
     }
 
@@ -41,7 +50,7 @@ abstract class BindingAbstract implements BindingInterface
      */
     public function setTargetUrlFromMetadata()
     {
-        if($this->metadataBindingLocation == '' || !isset($this->metadata[$this->metadataBindingLocation])) {
+        if ($this->metadataBindingLocation == '' || !isset($this->metadata[$this->metadataBindingLocation])) {
             throw new \Exception('Cant initialize binding, no SingleSignOn binding information is known for the current binding');
         }
 
@@ -49,29 +58,10 @@ abstract class BindingAbstract implements BindingInterface
     }
 
     /**
-     * Add the signature to the template
-     *
-     * @param \DOMElement $element
-     * @return bool
-     * @throws \Exception
-     */
-    public function addSignature(\DOMElement $element)
-    {
-        $objKey = $this->getConfiguration()->get('SigningCertificate')->getPrivateKey();
-
-        $sign = new Signature();
-        $sign->setCanonicalMethod(\XMLSecurityDSig::EXC_C14N_COMMENTS);
-        $sign->addReference($element, \XMLSecurityDSig::SHA1, array('http://www.w3.org/2000/09/xmldsig#enveloped-signature'));
-        $sign->add509Cert($this->getConfiguration()->get('SigningCertificate')->getPublicKey());
-        $sign->sign($objKey, $element);
-
-        return true;
-    }
-
-    /**
      * @return target URL of our request
      */
-    public function getTargetUrl() {
+    public function getTargetUrl()
+    {
         return $this->targetUrl;
     }
 
@@ -81,5 +71,25 @@ abstract class BindingAbstract implements BindingInterface
     public function request()
     {
         $this->setTargetUrlFromMetadata();
+    }
+
+    public function setContainer($container)
+    {
+        $this->container = $container;
+    }
+
+    public function getContainer()
+    {
+        return $this->container;
+    }
+
+    public function setProtocolBinding($binding)
+    {
+        $this->protocolBinding = $binding;
+    }
+
+    public function getProtocolBinding()
+    {
+        return $this->protocolBinding;
     }
 }

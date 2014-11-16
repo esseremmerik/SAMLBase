@@ -2,13 +2,20 @@
 
 namespace Wizkunde\SAML2PHP\Configuration;
 
+/**
+ * Class Timestamp
+ * @package Wizkunde\SAML2PHP\Configuration
+ */
 class Timestamp
 {
     const SECONDS_MINUTE = 60;
-    const SECONDS_HOUR   = 3600;
-    const SECONDS_DAY    = 86400;
-    const SECONDS_WEEK   = 604800;
+    const SECONDS_HOUR = 3600;
+    const SECONDS_DAY = 86400;
+    const SECONDS_WEEK = 604800;
 
+    /**
+     * @var string
+     */
     protected $timestamp = '';
 
     /**
@@ -16,7 +23,7 @@ class Timestamp
      *
      * @return string Get a valid timestamp
      */
-    public function __construct($time = null)
+    public function generate($time = null)
     {
         if ($time === null) {
             $time = time();
@@ -27,26 +34,41 @@ class Timestamp
 
         $UTC = new \DateTimeZone("UTC");
         $this->timestamp->setTimezone($UTC);
+
+        return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getDate()
     {
         return $this->timestamp;
     }
 
+    /**
+     * @param int $seconds
+     */
     public function add($seconds = 0)
     {
         $dateInterval = new \DateInterval('PT' . $seconds . 'S');
         $this->timestamp->add($dateInterval);
     }
 
+    /**
+     * @return mixed
+     */
     public function toTimestamp()
     {
         return $this->timestamp->getTimestamp();
     }
 
-    public function __toString()
+    /**
+     * @param string $dateFormat
+     * @return mixed
+     */
+    public function toFormat($dateFormat = 'Y-m-d\TH:i:s\Z')
     {
-        return $this->timestamp->format('Y-m-d\TH:i:s\Z');
+        return $this->timestamp->format($dateFormat);
     }
 }

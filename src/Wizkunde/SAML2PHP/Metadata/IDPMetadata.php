@@ -13,7 +13,7 @@ class IDPMetadata extends MetadataAbstract
     protected $xpathMappings = array(
         'Signature' => array(
             '//ds:Signature/ds:SignedInfo/ds:SignatureMethod' => array(
-                'Attributes'    => array(
+                'Attributes' => array(
                     'Algorithm' => 'SigningMethod'
                 ),
             ),
@@ -28,7 +28,7 @@ class IDPMetadata extends MetadataAbstract
         ),
         'Encryption' => array(
             '//ds:Signature/ds:SignedInfo/ds:Reference/ds:DigestMethod' => array(
-                'Attributes'    => array(
+                'Attributes' => array(
                     'Algorithm' => 'DigestMethod'
                 ),
             ),
@@ -40,7 +40,7 @@ class IDPMetadata extends MetadataAbstract
 
         'Metadata' => array(
             '//md:IDPSSODescriptor' => array(
-                'Attributes'    => array(
+                'Attributes' => array(
                     'protocolSupportEnumeration' => 'Protocol'
                 )
             ),

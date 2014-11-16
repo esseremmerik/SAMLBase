@@ -9,7 +9,8 @@ class Encryption extends \XMLSecEnc
      *
      * @param $string
      */
-    public function encrypt($string, $privateKey) {
+    public function encrypt($string, $privateKey)
+    {
         $document = new \DOMDocument($string);
 
 
@@ -22,7 +23,8 @@ class Encryption extends \XMLSecEnc
      * @return \DOMDocument
      * @throws \Exception
      */
-    public function decrypt($string, $publicKey) {
+    public function decrypt($string, $publicKey)
+    {
         $document = new \DOMDocument($string);
         $encryptedData = $this->locateEncryptedData($document);
 
@@ -30,14 +32,14 @@ class Encryption extends \XMLSecEnc
          * If data was not transmitted encrypted (happens a lot with redirect binding)
          * Then return the document
          */
-        if(!$encryptedData) {
+        if (!$encryptedData) {
             return $document;
         }
 
         $this->setNode($string);
 
         $this->type = $encryptedData->getAttribute("Type");
-        if (! $objKey = $this->locateKey()) {
+        if (!$objKey = $this->locateKey()) {
             throw new \Exception("Unable to detect the algorithm");
         }
 
@@ -49,7 +51,7 @@ class Encryption extends \XMLSecEnc
             }
         }
 
-        if (! $objKey->key && empty($key)) {
+        if (!$objKey->key && empty($key)) {
             $objKey->loadKey($publicKey);
         }
 

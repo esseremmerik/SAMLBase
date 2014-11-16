@@ -8,7 +8,7 @@ class Certificate
     protected $privateKey = null;
     protected $passphrase = '';
 
-    protected $type = null;
+    protected $type = \XMLSecurityKey::RSA_SHA1;
 
     /**
      * Create a new Certificate
@@ -23,7 +23,7 @@ class Certificate
     {
         $this->setType($type);
 
-        if($passphrase != '') {
+        if ($passphrase != '') {
             $this->setPassphrase($passphrase);
         }
 
@@ -84,7 +84,7 @@ class Certificate
     {
         $this->privateKey = new \XMLSecurityKey($this->getType(), array_merge($params, array('type' => 'private')));
 
-        if($this->passphrase != '') {
+        if ($this->passphrase != '') {
             $this->privateKey->passphrase = $this->passphrase;
         }
 

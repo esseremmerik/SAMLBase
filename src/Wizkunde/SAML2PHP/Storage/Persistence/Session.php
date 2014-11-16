@@ -9,7 +9,8 @@ class Session implements PersistenceInterface
 {
     use ConfigurationTrait;
 
-    public function persist($data) {
+    public function persist($data)
+    {
         $encryption = new Encryption();
         $encryption->setConfiguration($this->getConfiguration());
 

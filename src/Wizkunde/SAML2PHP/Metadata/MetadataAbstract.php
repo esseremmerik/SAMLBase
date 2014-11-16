@@ -42,7 +42,7 @@ abstract class MetadataAbstract
      */
     public function __construct($metadata = '')
     {
-        if($metadata != '') {
+        if ($metadata != '') {
             $this->mapMetadata($metadata);
         }
     }
@@ -67,26 +67,26 @@ abstract class MetadataAbstract
         $this->metadata = new \SimpleXMLElement($metadata);
 
         $mappings = array();
-        foreach($this->xpathMappings as $namespace => $xpathMappings) {
-            foreach($xpathMappings as $query => $mapping) {
+        foreach ($this->xpathMappings as $namespace => $xpathMappings) {
+            foreach ($xpathMappings as $query => $mapping) {
                 $data = current($this->metadata->xpath($query));
 
                 if (is_array($mapping)) {
                     if (isset($mapping['Attributes'])) {
                         foreach ($mapping['Attributes'] as $attribute => $mappedAttribute) {
-                            if(is_object($data)) {
+                            if (is_object($data)) {
                                 $mappings[$namespace][$mappedAttribute] = (string)$data->attributes()->$attribute;
                             }
                         }
                     }
 
                     if (array_key_exists('Value', $mapping)) {
-                        if(is_object($data)) {
+                        if (is_object($data)) {
                             $mappings[$namespace][$mapping['Value']] = (string)$data;
                         }
                     }
                 } else {
-                    if(is_object($data)) {
+                    if (is_object($data)) {
                         $mappings[$namespace][$mappedAttribute] = (string)$data;
                     }
                 }

@@ -4,6 +4,7 @@ namespace Wizkunde\SAML2PHP\Binding;
 
 use Wizkunde\SAML2PHP\Binding\BindingAbstract;
 use Wizkunde\SAML2PHP\Configuration;
+use Wizkunde\SAML2PHP\Security\Signature;
 use Wizkunde\SAML2PHP\Template\AuthnRequest as RequestTemplate;
 
 /**
@@ -55,7 +56,10 @@ class Post extends BindingAbstract
     protected function buildPostRequest()
     {
         $requestTemplate = new RequestTemplate('AuthnRequest', $this->getConfiguration());
-        $this->addSignature($requestTemplate->getDocument()->documentElement);
+
+        $signature = new Signature();
+        $signature->setConfiguration($this->getConfiguration());
+        $signature->addSignature($requestTemplate->getDocument()->documentElement);
 
         $deflatedRequest = gzdeflate($requestTemplate);
         $base64Request = base64_encode($deflatedRequest);

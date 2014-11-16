@@ -26,7 +26,7 @@ class ResolveService
     public function resolve(MetadataAbstract $metadataClass, $metadataUrl)
     {
         $response = $this->getClient()->get($metadataUrl);
-        $xmlDocument = (string) $response->getBody();
+        $xmlDocument = (string)$response->getBody();
 
         return $metadataClass->mapMetadata($xmlDocument);
     }

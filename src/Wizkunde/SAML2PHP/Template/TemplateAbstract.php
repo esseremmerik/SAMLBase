@@ -36,6 +36,6 @@ abstract class TemplateAbstract implements TemplateInterface
 
     public function __toString()
     {
-        return  $this->document->saveXml();
+        return $this->document->saveXml();
     }
 }

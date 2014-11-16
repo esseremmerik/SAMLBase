@@ -8,31 +8,31 @@ use Wizkunde\SAML2PHP\Configuration\UniqueID;
 
 class Configuration implements ConfigurationInterface
 {
-    const NAMEID_EMAIL_ADDRESS                 = 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress';
-    const NAMEID_X509_SUBJECT_NAME             = 'urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName';
+    const NAMEID_EMAIL_ADDRESS = 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress';
+    const NAMEID_X509_SUBJECT_NAME = 'urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName';
     const NAMEID_WINDOWS_DOMAIN_QUALIFIED_NAME = 'urn:oasis:names:tc:SAML:1.1:nameid-format:WindowsDomainQualifiedName';
-    const NAMEID_KERBEROS   = 'urn:oasis:names:tc:SAML:2.0:nameid-format:kerberos';
-    const NAMEID_ENTITY     = 'urn:oasis:names:tc:SAML:2.0:nameid-format:entity';
-    const NAMEID_TRANSIENT  = 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient';
+    const NAMEID_KERBEROS = 'urn:oasis:names:tc:SAML:2.0:nameid-format:kerberos';
+    const NAMEID_ENTITY = 'urn:oasis:names:tc:SAML:2.0:nameid-format:entity';
+    const NAMEID_TRANSIENT = 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient';
     const NAMEID_PERSISTENT = 'urn:oasis:names:tc:SAML:2.0:nameid-format:persistent';
 
     /**
      * @var array Basic configuration
      */
     protected $configuration = array(
-        'NameID'                    => '',
-        'Issuer'                    => '',
-        'MetadataExpirationTime'    => 604800,
-        'SPReturnUrl'               => '',
-        'SigningCertificate'        => '',
-        'EncryptionCertificate'     => '',
-        'ComparisonLevel'           => 'exact',
-        'ForceAuthn'                => 'false',
-        'IsPassive'                 => 'false',
-        'UniqueID'                  => '',
-        'Timestamp'                 => '',
-        'ProtocolBinding'           => '',
-        'NameIDFormat'              => ''
+        'NameID' => '',
+        'Issuer' => '',
+        'MetadataExpirationTime' => 604800,
+        'SPReturnUrl' => '',
+        'SigningCertificate' => '',
+        'EncryptionCertificate' => '',
+        'ComparisonLevel' => 'exact',
+        'ForceAuthn' => 'false',
+        'IsPassive' => 'false',
+        'UniqueID' => '',
+        'Timestamp' => '',
+        'ProtocolBinding' => '',
+        'NameIDFormat' => ''
     );
 
     /**
@@ -45,8 +45,9 @@ class Configuration implements ConfigurationInterface
         $this->setConfiguration($configuration);
     }
 
-    public function get($configKey) {
-        if(isset($this->configuration[$configKey])) {
+    public function get($configKey)
+    {
+        if (isset($this->configuration[$configKey])) {
             return $this->configuration[$configKey];
         }
 

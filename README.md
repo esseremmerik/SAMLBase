@@ -5,8 +5,8 @@ SAML2PHP
 Build SAML Connections in php object based.
 
 ##Status
-There is still a LOT of work to do, but the initial AuthNRequest can now be setup.
-Works completely with the DOM instead of templates that are unchangeable and static.
+Currently its possible to dynamically load the metadata, and after that, do a request via a POST or Redirect binding.
+You can sign requests with a certificate. The response can be read, decrypted, verified and attributes can be retrieved.
 
 ##Setup
     composer install
