@@ -24,17 +24,14 @@ Thats all!
         4. Handle the AuthNResponse
         5. Pass thru returning attributes and claims
         6. Templates changed to twig
+        7. Use a DIC to provide the classes with the necessary information
 
     TODO
         1. Support SOAP and Artifact binding
         2. Handle a Single Logout Request
         3. Give the library a better name, SAML2PHP is lame.
         4. Unit Tests
-        5. Event listeners register
-            5.1 dont want to write the whole listener system ourselves, what can we use thats predefined
-            5.2 What does symfony use for listener service?
-            5.3 How can we listen to events without having to add event listener code lines to the code?
-        6. Determine what we need caches for
+        5. Determine what we need caches for
 
 ## Examples (relative to package root)
 

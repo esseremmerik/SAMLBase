@@ -90,9 +90,9 @@ abstract class BindingAbstract implements BindingInterface
         return $this->protocolBinding;
     }
 
-    public function buildAuthnRequest()
+    public function buildRequest($requestType = 'AuthnRequest')
     {
-        $requestTemplate = $this->getContainer()->get('twig')->render('AuthnRequest.xml.twig',
+        $requestTemplate = $this->getContainer()->get('twig')->render($requestType . '.xml.twig',
             array(
                 'ProtocolBinding' => $this->getProtocolBinding(),
                 'UniqueID' => $this->getContainer()->get('unique_id_generator')->generate(),
@@ -106,12 +106,23 @@ abstract class BindingAbstract implements BindingInterface
             )
         );
 
+        $signedTemplate = $this->signTemplate($requestTemplate);
+        return $this->prepareTemplateForRequest($signedTemplate);
+    }
+
+    protected function signTemplate($template)
+    {
         $document = new \DOMDocument();
-        $document->loadXML($requestTemplate);
+        $document->loadXML($template);
 
         $this->getContainer()->get('signature')->addSignature($document);
 
-        $deflatedRequest = gzdeflate($document->saveXML());
+        return $document->saveXML();
+    }
+
+    protected function prepareTemplateForRequest($template)
+    {
+        $deflatedRequest = gzdeflate($template);
         $base64Request = base64_encode($deflatedRequest);
         $encodedRequest = urlencode($base64Request);
 

@@ -1,6 +1,6 @@
 <?php
 
-include_once('./vendor/autoload.php');
+include_once('../vendor/autoload.php');
 
 $certData = array();
 $certData['passphrase'] = 'test1234';
@@ -12,12 +12,12 @@ $container->setParameter('NameID', 'testNameId');
 $container->setParameter('Issuer', 'http://saml.dev.wizkunde.nl/');
 $container->setParameter('MetadataExpirationTime', 604800);
 $container->setParameter('SPReturnUrl', 'http://return.wizkunde.nl/');
-$container->setParameter('ForceAuthn', 'false');
+$container->setParameter('ForceAuthn', 'true');
 $container->setParameter('IsPassive', 'false');
 $container->setParameter('NameIDFormat', 'testNameId');
 $container->setParameter('ComparisonLevel', 'exact');
 
-$container->register('twig_loader', 'Twig_Loader_Filesystem')->addArgument('src/Wizkunde/SAML2PHP/Template/Twig');
+$container->register('twig_loader', 'Twig_Loader_Filesystem')->addArgument('../src/Wizkunde/SAML2PHP/Template/Twig');
 $container->register('twig', 'Twig_Environment')->addArgument(new Symfony\Component\DependencyInjection\Reference('twig_loader'));
 
 $container->register('SigningCertificate', 'Wizkunde\SAML2PHP\Certificate')
@@ -50,12 +50,12 @@ $container->register('resolver', 'Wizkunde\SAML2PHP\Metadata\ResolveService')
  */
 $metadata = $container->get('resolver')->resolve(new \Wizkunde\SAML2PHP\Metadata\IDPMetadata(), 'http://idp.wizkunde.nl/simplesaml/saml2/idp/metadata.php');
 
-
-$container->register('response', 'Wizkunde\SAML2PHP\Response\AuthnResponse')
+$container->register('binding_post', 'Wizkunde\SAML2PHP\Binding\Redirect')
+    ->addMethodCall('setMetadata', array($metadata))
     ->addMethodCall('setContainer', array($container));
 
-$responseData = $container->get('response')->decode($_POST['SAMLResponse']);
+$container->register('binding_redirect', 'Wizkunde\SAML2PHP\Binding\Redirect')
+    ->addMethodCall('setMetadata', array($metadata))
+    ->addMethodCall('setContainer', array($container));
 
-$attributes = new \Wizkunde\SAML2PHP\Claim\Attributes();
-
-var_dump($attributes->getAttributes($responseData));
+$redirectUrl = $container->get('binding_redirect')->request();

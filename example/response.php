@@ -1,6 +1,10 @@
 <?php
 
-include_once('./vendor/autoload.php');
+if(!isset($_POST['SAMLResponse']) && !isset($_GET['SAMLResponse'])) {
+    header('Location: attributes.php');
+}
+
+include_once('../vendor/autoload.php');
 
 $certData = array();
 $certData['passphrase'] = 'test1234';
@@ -12,7 +16,7 @@ $container->setParameter('NameID', 'testNameId');
 $container->setParameter('Issuer', 'http://saml.dev.wizkunde.nl/');
 $container->setParameter('MetadataExpirationTime', 604800);
 $container->setParameter('SPReturnUrl', 'http://return.wizkunde.nl/');
-$container->setParameter('ForceAuthn', 'true');
+$container->setParameter('ForceAuthn', 'false');
 $container->setParameter('IsPassive', 'false');
 $container->setParameter('NameIDFormat', 'testNameId');
 $container->setParameter('ComparisonLevel', 'exact');
@@ -50,12 +54,13 @@ $container->register('resolver', 'Wizkunde\SAML2PHP\Metadata\ResolveService')
  */
 $metadata = $container->get('resolver')->resolve(new \Wizkunde\SAML2PHP\Metadata\IDPMetadata(), 'http://idp.wizkunde.nl/simplesaml/saml2/idp/metadata.php');
 
-$container->register('binding_post', 'Wizkunde\SAML2PHP\Binding\Redirect')
-    ->addMethodCall('setMetadata', array($metadata))
+
+$container->register('response', 'Wizkunde\SAML2PHP\Response\AuthnResponse')
     ->addMethodCall('setContainer', array($container));
 
-$container->register('binding_redirect', 'Wizkunde\SAML2PHP\Binding\Redirect')
-    ->addMethodCall('setMetadata', array($metadata))
-    ->addMethodCall('setContainer', array($container));
+$SAMLResponse = (isset($_POST['SAMLResponse'])) ?  $_POST['SAMLResponse'] : $_GET['SAMLResponse'];
+$responseData = $container->get('response')->decode($SAMLResponse);
 
-$redirectUrl = $container->get('binding_redirect')->request();
+$attributes = new \Wizkunde\SAML2PHP\Claim\Attributes();
+
+var_dump($attributes->getAttributes($responseData));

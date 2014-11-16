@@ -20,7 +20,7 @@ class Post extends BindingAbstract
     /**
      * Do a request with the current binding
      */
-    public function request()
+    public function request($requestType = 'AuthnRequest')
     {
         parent::request();
 
@@ -32,7 +32,7 @@ class Post extends BindingAbstract
         echo '</body></html>';
         exit;
 
-        header('Location: ' . (string)$this->buildAuthnRequest());
+        header('Location: ' . (string)$this->buildRequest($requestType));
     }
 
     protected function buildPostForm($url = '')

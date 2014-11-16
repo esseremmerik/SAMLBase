@@ -20,12 +20,12 @@ class Redirect extends BindingAbstract
     /**
      * Do a request with the current binding
      */
-    public function request()
+    public function request($requestType = 'AuthnRequest')
     {
         parent::request();
 
         $this->setProtocolBinding(self::BINDING_REDIRECT);
 
-        header('Location: ' . (string)$this->getTargetUrl() . '?SAMLRequest=' . $this->buildAuthnRequest());
+        header('Location: ' . (string)$this->getTargetUrl() . '?SAMLRequest=' . $this->buildRequest($requestType));
     }
 }
