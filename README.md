@@ -35,9 +35,11 @@ Thats all!
 
 ## Examples (relative to package root)
 
-    /index.php - Example AuthNRequest (Redirect and POST binding)
-    /response.php - Example AuthNResponse target file (POST Binding)
-
+    /example/index.php - Example AuthNRequest (Redirect and POST binding)
+    /example/response.php - Example AuthNResponse target file (POST Binding)
+    /example/attributes.php - WIP AttributeQuery request after being logged in (requires attributequery service on the IDP)
+    /example/logout.php - WIP Logout request
+    
 ## License information
     This code is released under the GPL v3 license
     Info about the license can be found here:  http://www.gnu.org/copyleft/gpl.html
