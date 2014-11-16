@@ -2,11 +2,6 @@
 
 namespace Wizkunde\SAML2PHP\Binding;
 
-use Wizkunde\SAML2PHP\Binding\BindingAbstract;
-use Wizkunde\SAML2PHP\Configuration;
-use Wizkunde\SAML2PHP\Security\Signature;
-use Wizkunde\SAML2PHP\Template\AuthnRequest as RequestTemplate;
-
 /**
  * Class Redirect
  *
@@ -29,7 +24,7 @@ class Post extends BindingAbstract
     {
         parent::request();
 
-        $this->getConfiguration()->set('ProtocolBinding', self::BINDING_POST);
+        $this->setProtocolBinding(self::BINDING_POST);
 
         echo '<html><head></head><body onload="document.postform.submit();">';
         $form = $this->buildPostForm($this->getTargetUrl());
@@ -37,7 +32,7 @@ class Post extends BindingAbstract
         echo '</body></html>';
         exit;
 
-        header('Location: ' . (string)$redirectUrl);
+        header('Location: ' . (string)$this->buildAuthnRequest());
     }
 
     protected function buildPostForm($url = '')
@@ -47,24 +42,5 @@ class Post extends BindingAbstract
         $form .= '</form>';
 
         return $form;
-    }
-
-    /**
-     * Build the SAML Request, using the template thats provided
-     * @return RequestTemplate
-     */
-    protected function buildPostRequest()
-    {
-        $requestTemplate = new RequestTemplate('AuthnRequest', $this->getConfiguration());
-
-        $signature = new Signature();
-        $signature->setConfiguration($this->getConfiguration());
-        $signature->addSignature($requestTemplate->getDocument()->documentElement);
-
-        $deflatedRequest = gzdeflate($requestTemplate);
-        $base64Request = base64_encode($deflatedRequest);
-        $encodedRequest = urlencode($base64Request);
-
-        return $encodedRequest;
     }
 }

@@ -2,9 +2,6 @@
 
 namespace Wizkunde\SAML2PHP\Response;
 
-use Wizkunde\SAML2PHP\Security\Encryption;
-use Wizkunde\SAML2PHP\Security\Signature;
-
 class AuthnResponse
 {
     /**

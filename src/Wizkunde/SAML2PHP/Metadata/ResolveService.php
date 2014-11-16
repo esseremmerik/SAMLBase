@@ -2,18 +2,12 @@
 
 namespace Wizkunde\SAML2PHP\Metadata;
 
-use Wizkunde\SAML2PHP\Configuration;
 use GuzzleHttp\Client;
-
-use Wizkunde\SAML2PHP\ConfigurationTrait;
-use Wizkunde\SAML2PHP\Metadata\MetadataAbstract;
 
 class ResolveService
 {
     /**
      * Initialize the resolver service
-     *
-     * @param Configuration $configuration
      */
     public function __construct(Client $client)
     {

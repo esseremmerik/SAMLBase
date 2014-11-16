@@ -2,8 +2,6 @@
 
 namespace Wizkunde\SAML2PHP\Configuration;
 
-use Wizkunde\SAML2PHP\Configuration\ClaimInterface;
-
 class Claim implements ClaimInterface
 {
     protected $claimKey = '';
