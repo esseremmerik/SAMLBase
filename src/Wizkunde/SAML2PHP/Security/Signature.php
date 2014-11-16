@@ -2,7 +2,7 @@
 
 namespace Wizkunde\SAML2PHP\Security;
 
-use Wizkunde\SAML2PHP\Certificate\Certificate;
+use Wizkunde\SAML2PHP\Certificate;
 use Wizkunde\SAML2PHP\ConfigurationTrait;
 
 class Signature extends \XMLSecurityDSig

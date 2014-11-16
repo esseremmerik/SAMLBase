@@ -11,12 +11,12 @@ $container = new Symfony\Component\DependencyInjection\ContainerBuilder();
 $container->register('twig_loader', 'Twig_Loader_Filesystem')->addArgument('src/Wizkunde/SAML2PHP/Template/Twig');
 $container->register('twig', 'Twig_Environment')->addArgument(new Symfony\Component\DependencyInjection\Reference('twig_loader'));
 
-$container->register('SigningCertificate', 'Wizkunde\SAML2PHP\Certificate\Certificate')
+$container->register('SigningCertificate', 'Wizkunde\SAML2PHP\Certificate')
     ->addArgument($certData['privatekey'])
     ->addArgument($certData['certificate'])
     ->addArgument($certData['passphrase']);
 
-$container->register('EncryptionCertificate', 'Wizkunde\SAML2PHP\Certificate\Certificate')
+$container->register('EncryptionCertificate', 'Wizkunde\SAML2PHP\Certificate')
     ->addArgument($certData['privatekey'])
     ->addArgument($certData['certificate'])
     ->addArgument($certData['passphrase']);
