@@ -14,7 +14,7 @@ class Session implements PersistenceInterface
         $encryption->setConfiguration($this->getConfiguration());
 
         var_dump($data['Token']);
-        $encryptedToken = $encryption->encrypt($data['Token']);
+        $encryptedToken = $encryption->encrypt($data['Token'], $this->getConfiguration()->get('EncryptionCertificate')->getPrivateKey());
         var_dump($encryptedToken);
     }
 }

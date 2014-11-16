@@ -55,6 +55,7 @@ class Post extends BindingAbstract
     protected function buildPostRequest()
     {
         $requestTemplate = new RequestTemplate('AuthnRequest', $this->getConfiguration());
+        $this->addSignature($requestTemplate->getDocument()->documentElement);
 
         $deflatedRequest = gzdeflate($requestTemplate);
         $base64Request = base64_encode($deflatedRequest);

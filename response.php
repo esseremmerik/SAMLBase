@@ -37,6 +37,9 @@ F1PdL+qxRCJjmEHc8B6mhAnX0VFGS7cSUBktYa2ftesv
 -----END RSA PRIVATE KEY-----'
 );
 
+/**
+ * Load a private and public key into the xmlseclib format (XMLSecurityKey)
+ */
 $cert = new \Wizkunde\SAML2PHP\Certificate\Certificate($certData['privatekey'], $certData['certificate'], $certData['passphrase']);
 
 /**

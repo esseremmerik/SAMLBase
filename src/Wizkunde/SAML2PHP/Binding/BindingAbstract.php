@@ -4,6 +4,7 @@ namespace Wizkunde\SAML2PHP\Binding;
 
 use Wizkunde\SAML2PHP\Binding\BindingInterface;
 use Wizkunde\SAML2PHP\ConfigurationTrait;
+use Wizkunde\SAML2PHP\Security\Signature;
 
 abstract class BindingAbstract implements BindingInterface
 {
@@ -45,6 +46,26 @@ abstract class BindingAbstract implements BindingInterface
         }
 
         $this->targetUrl = $this->metadata[$this->metadataBindingLocation]['Location'];
+    }
+
+    /**
+     * Add the signature to the template
+     *
+     * @param \DOMElement $element
+     * @return bool
+     * @throws \Exception
+     */
+    public function addSignature(\DOMElement $element)
+    {
+        $objKey = $this->getConfiguration()->get('SigningCertificate')->getPrivateKey();
+
+        $sign = new Signature();
+        $sign->setCanonicalMethod(\XMLSecurityDSig::EXC_C14N_COMMENTS);
+        $sign->addReference($element, \XMLSecurityDSig::SHA1, array('http://www.w3.org/2000/09/xmldsig#enveloped-signature'));
+        $sign->add509Cert($this->getConfiguration()->get('SigningCertificate')->getPublicKey());
+        $sign->sign($objKey, $element);
+
+        return true;
     }
 
     /**
