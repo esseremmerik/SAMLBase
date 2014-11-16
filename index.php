@@ -12,7 +12,7 @@ $container->setParameter('NameID', 'testNameId');
 $container->setParameter('Issuer', 'http://saml.dev.wizkunde.nl/');
 $container->setParameter('MetadataExpirationTime', 604800);
 $container->setParameter('SPReturnUrl', 'http://return.wizkunde.nl/');
-$container->setParameter('ForceAuthn', 'false');
+$container->setParameter('ForceAuthn', 'true');
 $container->setParameter('IsPassive', 'false');
 $container->setParameter('NameIDFormat', 'testNameId');
 $container->setParameter('ComparisonLevel', 'exact');
@@ -29,6 +29,9 @@ $container->register('EncryptionCertificate', 'Wizkunde\SAML2PHP\Certificate')
     ->addArgument($certData['privatekey'])
     ->addArgument($certData['certificate'])
     ->addArgument($certData['passphrase']);
+
+$container->register('encryption', 'Wizkunde\SAML2PHP\Security\Encryption')
+    ->addMethodCall('setCertificate',array(new Symfony\Component\DependencyInjection\Reference('EncryptionCertificate')));
 
 $container->register('signature', 'Wizkunde\SAML2PHP\Security\Signature')
     ->addMethodCall('setCertificate',array(new Symfony\Component\DependencyInjection\Reference('SigningCertificate')));

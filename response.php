@@ -30,6 +30,9 @@ $container->register('EncryptionCertificate', 'Wizkunde\SAML2PHP\Certificate')
     ->addArgument($certData['certificate'])
     ->addArgument($certData['passphrase']);
 
+$container->register('encryption', 'Wizkunde\SAML2PHP\Security\Encryption')
+    ->addMethodCall('setCertificate',array(new Symfony\Component\DependencyInjection\Reference('EncryptionCertificate')));
+
 $container->register('signature', 'Wizkunde\SAML2PHP\Security\Signature')
     ->addMethodCall('setCertificate',array(new Symfony\Component\DependencyInjection\Reference('SigningCertificate')));
 
@@ -52,13 +55,6 @@ $container->register('response', 'Wizkunde\SAML2PHP\Response\AuthnResponse')
     ->addMethodCall('setContainer', array($container));
 
 $responseData = $container->get('response')->decode($_POST['SAMLResponse']);
-
-$container->register('storage_adapter_session', 'Wizkunde\SAML2PHP\Storage\Persistence\Session');
-$container->register('storage', 'Wizkunde\SAML2PHP\Storage\Storage')
-        ->addMethodCall('setAdapter', array(new Symfony\Component\DependencyInjection\Reference('storage_adapter_session')));
-
-//$session = new Wizkunde\SAML2PHP\Storage\Storage($configuration);
-//$session->setAdapter(new \Wizkunde\SAML2PHP\Storage\Persistence\Session());
 
 $attributes = new \Wizkunde\SAML2PHP\Claim\Attributes();
 

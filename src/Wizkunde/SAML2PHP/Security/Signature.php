@@ -3,7 +3,6 @@
 namespace Wizkunde\SAML2PHP\Security;
 
 use Wizkunde\SAML2PHP\Certificate;
-use Wizkunde\SAML2PHP\ConfigurationTrait;
 
 class Signature extends \XMLSecurityDSig
 {
@@ -54,10 +53,9 @@ class Signature extends \XMLSecurityDSig
      */
     public function addSignature(\DOMDocument $document)
     {
-        $sign = new Signature();
-        $sign->setCanonicalMethod(\XMLSecurityDSig::EXC_C14N_COMMENTS);
-        $sign->addReference($document, \XMLSecurityDSig::SHA1, array('http://www.w3.org/2000/09/xmldsig#enveloped-signature'));
-        $sign->add509Cert($this->getCertificate()->getPublicKey()->getX509Certificate());
-        $sign->sign($this->getCertificate()->getPrivateKey(), $document->firstChild);
+        $this->setCanonicalMethod(\XMLSecurityDSig::EXC_C14N_COMMENTS);
+        $this->addReference($document, \XMLSecurityDSig::SHA1, array('http://www.w3.org/2000/09/xmldsig#enveloped-signature'));
+        $this->add509Cert($this->getCertificate()->getPublicKey()->getX509Certificate());
+        $this->sign($this->getCertificate()->getPrivateKey(), $document->firstChild);
     }
 }

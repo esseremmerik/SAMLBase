@@ -2,8 +2,16 @@
 
 namespace Wizkunde\SAML2PHP\Security;
 
+use Wizkunde\SAML2PHP\Certificate;
+
+/**
+ * Class Encryption
+ * @package Wizkunde\SAML2PHP\Security
+ */
 class Encryption extends \XMLSecEnc
 {
+    protected $certificate = null;
+
     /**
      * Encrypt data with our certificate before we do anything with it
      *
@@ -12,8 +20,22 @@ class Encryption extends \XMLSecEnc
     public function encrypt($string, $privateKey)
     {
         $document = new \DOMDocument($string);
+    }
 
+    /**
+     * @param Certificate $certificate
+     */
+    public function setCertificate(Certificate $certificate)
+    {
+        $this->certificate = $certificate;
+    }
 
+    /**
+     * @return mixed
+     */
+    public function getCertificate()
+    {
+        return $this->certificate;
     }
 
     /**
@@ -23,7 +45,7 @@ class Encryption extends \XMLSecEnc
      * @return \DOMDocument
      * @throws \Exception
      */
-    public function decrypt($string, $publicKey)
+    public function decrypt($string)
     {
         $document = new \DOMDocument($string);
         $encryptedData = $this->locateEncryptedData($document);
@@ -46,13 +68,13 @@ class Encryption extends \XMLSecEnc
         if ($objKeyInfo = $this->locateKeyInfo($objKey)) {
             if ($objKeyInfo->isEncrypted) {
                 $objencKey = $objKeyInfo->encryptedCtx;
-                $objKeyInfo->loadKey($publicKey);
+                $objKeyInfo->loadKey($this->getCertificate()->getPublicKey());
                 $key = $objencKey->decryptKey($objKeyInfo);
             }
         }
 
         if (!$objKey->key && empty($key)) {
-            $objKey->loadKey($publicKey);
+            $objKey->loadKey($this->getCertificate()->getPublicKey());
         }
 
         if (empty($objKey->key)) {

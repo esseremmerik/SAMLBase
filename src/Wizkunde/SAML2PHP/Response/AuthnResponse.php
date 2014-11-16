@@ -23,12 +23,9 @@ class AuthnResponse
     {
         $responseData = base64_decode($response);
 
-        $encryption = new Encryption();
-        $decryptedDocument = $encryption->decrypt($responseData, $this->getContainer()->get('EncryptionCertificate'));
+        $decryptedDocument = $this->getContainer()->get('encryption')->decrypt($responseData);
 
-        $signature = new Signature();
-        $signature->setCertificate($this->getContainer()->get('SigningCertificate'));
-        if ($signature->verifyDOMDocument($decryptedDocument) == false) {
+        if ($this->getContainer()->get('signature')->verifyDOMDocument($decryptedDocument) == false) {
             throw new \Exception('Could not verify Signature');
         }
 
