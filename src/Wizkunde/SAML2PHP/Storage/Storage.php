@@ -2,13 +2,10 @@
 
 namespace Wizkunde\SAML2PHP\Storage;
 
-use Wizkunde\SAML2PHP\Configuration;
-use Wizkunde\SAML2PHP\ConfigurationTrait;
 use Wizkunde\SAML2PHP\Storage\Persistence\PersistenceInterface;
 
 class Storage
 {
-    use ConfigurationTrait;
 
     /**
      * Storage adapter to be used for persistence
@@ -16,11 +13,6 @@ class Storage
      * @var null
      */
     protected $adapter = null;
-
-    public function __construct(Configuration $configuration)
-    {
-        $this->setConfiguration($configuration);
-    }
 
     /**
      * Get the persistence adapter
@@ -30,7 +22,6 @@ class Storage
     public function setAdapter(PersistenceInterface $adapter)
     {
         $this->adapter = $adapter;
-        $this->adapter->setConfiguration($this->getConfiguration());
     }
 
     /**

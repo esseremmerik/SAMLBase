@@ -8,6 +8,15 @@ $certData['certificate'] = file_get_contents('./cert/example.crt');
 $certData['privatekey'] = file_get_contents('./cert/example.pem');
 
 $container = new Symfony\Component\DependencyInjection\ContainerBuilder();
+$container->setParameter('NameID', 'testNameId');
+$container->setParameter('Issuer', 'http://saml.dev.wizkunde.nl/');
+$container->setParameter('MetadataExpirationTime', 604800);
+$container->setParameter('SPReturnUrl', 'http://return.wizkunde.nl/');
+$container->setParameter('ForceAuthn', 'false');
+$container->setParameter('IsPassive', 'false');
+$container->setParameter('NameIDFormat', 'testNameId');
+$container->setParameter('ComparisonLevel', 'exact');
+
 $container->register('twig_loader', 'Twig_Loader_Filesystem')->addArgument('src/Wizkunde/SAML2PHP/Template/Twig');
 $container->register('twig', 'Twig_Environment')->addArgument(new Symfony\Component\DependencyInjection\Reference('twig_loader'));
 
@@ -37,15 +46,6 @@ $container->register('resolver', 'Wizkunde\SAML2PHP\Metadata\ResolveService')
  * Resolve the metadata
  */
 $metadata = $container->get('resolver')->resolve(new \Wizkunde\SAML2PHP\Metadata\IDPMetadata(), 'http://idp.wizkunde.nl/simplesaml/saml2/idp/metadata.php');
-
-$container->setParameter('NameID', 'testNameId');
-$container->setParameter('Issuer', 'http://saml.dev.wizkunde.nl/');
-$container->setParameter('MetadataExpirationTime', 604800);
-$container->setParameter('SPReturnUrl', 'http://return.wizkunde.nl/');
-$container->setParameter('ForceAuthn', 'false');
-$container->setParameter('IsPassive', 'false');
-$container->setParameter('NameIDFormat', 'testNameId');
-$container->setParameter('ComparisonLevel', 'exact');
 
 $container->register('binding_post', 'Wizkunde\SAML2PHP\Binding\Redirect')
     ->addMethodCall('setMetadata', array($metadata))

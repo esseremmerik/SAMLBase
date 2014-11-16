@@ -2,24 +2,17 @@
 
 namespace Wizkunde\SAML2PHP\Response;
 
-use Wizkunde\SAML2PHP\Configuration;
-use Wizkunde\SAML2PHP\ConfigurationTrait;
 use Wizkunde\SAML2PHP\Security\Encryption;
 use Wizkunde\SAML2PHP\Security\Signature;
 
 class AuthnResponse
 {
-    use ConfigurationTrait;
-
     /**
-     * Initialize the class with the configuration
+     * Contains the dependency injection container
      *
-     * @param Configuration $configuration
+     * @var null
      */
-    public function __construct(Configuration $configuration)
-    {
-        $this->setConfiguration($configuration);
-    }
+    protected $container = null;
 
     /**
      * Handle the response string that we receive
@@ -31,14 +24,24 @@ class AuthnResponse
         $responseData = base64_decode($response);
 
         $encryption = new Encryption();
-        $decryptedDocument = $encryption->decrypt($responseData, $this->getConfiguration()->get('EncryptionCertificate'));
+        $decryptedDocument = $encryption->decrypt($responseData, $this->getContainer()->get('EncryptionCertificate'));
 
         $signature = new Signature();
-        $signature->setConfiguration($this->getConfiguration());
+        $signature->setCertificate($this->getContainer()->get('SigningCertificate'));
         if ($signature->verifyDOMDocument($decryptedDocument) == false) {
             throw new \Exception('Could not verify Signature');
         }
 
         return $decryptedDocument;
+    }
+
+    public function setContainer($container)
+    {
+        $this->container = $container;
+    }
+
+    public function getContainer()
+    {
+        return $this->container;
     }
 }
