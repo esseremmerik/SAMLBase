@@ -27,18 +27,16 @@ class Post extends BindingAbstract
         $this->setProtocolBinding(self::BINDING_POST);
 
         echo '<html><head></head><body onload="document.postform.submit();">';
-        $form = $this->buildPostForm($this->getTargetUrl());
+        $form = $this->buildPostForm($this->getTargetUrl(), $requestType);
         echo $form;
         echo '</body></html>';
         exit;
-
-        header('Location: ' . (string)$this->buildRequest($requestType));
     }
 
-    protected function buildPostForm($url = '')
+    protected function buildPostForm($url = '', $requestType = 'AuthnRequest')
     {
         $form = '<form method="POST" action="' . $url . '" name="postform">';
-        $form .= '<input type="hidden" name="SAMLRequest" value=" ' . $this->buildPostRequest() . '">';
+        $form .= '<input type="hidden" name="SAMLRequest" value=" ' . (string)$this->buildRequest($requestType)) . '">';
         $form .= '</form>';
 
         return $form;
