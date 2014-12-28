@@ -1,6 +1,6 @@
 <?php
 
-namespace Wizkunde\SAML2PHP\Response;
+namespace Wizkunde\SAMLBase\Response;
 
 class AuthnResponse
 {

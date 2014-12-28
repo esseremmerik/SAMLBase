@@ -1,6 +1,6 @@
 <?php
 
-namespace Wizkunde\SAML2PHP\Metadata;
+namespace Wizkunde\SAMLBase\Metadata;
 
 use GuzzleHttp\Client;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Wizkunde\SAML2PHP\Metadata;
+namespace Wizkunde\SAMLBase\Metadata;
 
-use Wizkunde\SAML2PHP\Binding\Redirect;
+use Wizkunde\SAMLBase\Binding\Redirect;
 
 class IDPMetadata extends MetadataAbstract
 {

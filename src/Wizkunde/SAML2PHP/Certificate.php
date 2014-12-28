@@ -1,6 +1,6 @@
 <?php
 
-namespace Wizkunde\SAML2PHP;
+namespace Wizkunde\SAMLBase;
 
 class Certificate
 {

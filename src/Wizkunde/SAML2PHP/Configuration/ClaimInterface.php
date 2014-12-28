@@ -1,6 +1,6 @@
 <?php
 
-namespace Wizkunde\SAML2PHP\Configuration;
+namespace Wizkunde\SAMLBase\Configuration;
 
 interface ClaimInterface
 {

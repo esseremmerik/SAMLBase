@@ -1,12 +1,12 @@
 <?php
 
-namespace Wizkunde\SAML2PHP\Metadata;
+namespace Wizkunde\SAMLBase\Metadata;
 
 /**
  * This class automatically maps IDP metadata to the designated values
  *
  * Class Metadata
- * @package Wizkunde\SAML2PHP\Metadata
+ * @package Wizkunde\SAMLBase\Metadata
  */
 abstract class MetadataAbstract
 {

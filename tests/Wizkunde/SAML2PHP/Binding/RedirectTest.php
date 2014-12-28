@@ -1,12 +1,12 @@
 <?php
 
-namespace Wizkunde\SAML2PHP\Binding;
+namespace Wizkunde\SAMLBase\Binding;
 
-use Wizkunde\SAML2PHP\Binding\Redirect;
-use Wizkunde\SAML2PHP\Configuration\Certificate;
-use Wizkunde\SAML2PHP\Configuration;
-use Wizkunde\SAML2PHP\Configuration\Timestamp;
-use Wizkunde\SAML2PHP\Configuration\UniqueID;
+use Wizkunde\SAMLBase\Binding\Redirect;
+use Wizkunde\SAMLBase\Configuration\Certificate;
+use Wizkunde\SAMLBase\Configuration;
+use Wizkunde\SAMLBase\Configuration\Timestamp;
+use Wizkunde\SAMLBase\Configuration\UniqueID;
 
 class RedirectTest extends \PHPUnit_Framework_TestCase
 {

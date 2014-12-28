@@ -1,9 +1,9 @@
 <?php
 
-namespace Wizkunde\SAML2PHP;
+namespace Wizkunde\SAMLBase;
 
-use Wizkunde\SAML2PHP\Configuration;
-use Wizkunde\SAML2PHP\Configuration\Certificate;
+use Wizkunde\SAMLBase\Configuration;
+use Wizkunde\SAMLBase\Configuration\Certificate;
 
 class ConfigurationTest extends \PHPUnit_Framework_TestCase
 {
@@ -54,14 +54,14 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     {
         $cert = new Certificate('testcertificaat');
         $this->configuration->setIdpSigningCertificate($cert);
-        $this->assertInstanceOf('Wizkunde\SAML2PHP\Configuration\Certificate', $this->configuration->getIdpSigningCertificate());
+        $this->assertInstanceOf('Wizkunde\SAMLBase\Configuration\Certificate', $this->configuration->getIdpSigningCertificate());
     }
 
     public function testIdpEncryptionCertificateSetProperly()
     {
         $cert = new Certificate('testcertificaat');
         $this->configuration->setIdpEncryptionCertificate($cert);
-        $this->assertInstanceOf('Wizkunde\SAML2PHP\Configuration\Certificate', $this->configuration->getIdpEncryptionCertificate());
+        $this->assertInstanceOf('Wizkunde\SAMLBase\Configuration\Certificate', $this->configuration->getIdpEncryptionCertificate());
     }
 
     public function testSetMassConfiguration()
@@ -75,7 +75,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $this->assertInstanceOf('Wizkunde\SAML2PHP\Configuration\Certificate', $this->configuration->getIdpSigningCertificate());
+        $this->assertInstanceOf('Wizkunde\SAMLBase\Configuration\Certificate', $this->configuration->getIdpSigningCertificate());
         $this->assertEquals($this->configuration->getSpReturnUrl(), 'http://return.wizkunde.nl/');
     }
 

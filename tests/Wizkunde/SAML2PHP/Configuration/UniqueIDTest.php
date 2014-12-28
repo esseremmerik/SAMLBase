@@ -1,9 +1,9 @@
 <?php
 
-namespace Wizkunde\SAML2PHP\Configuration;
+namespace Wizkunde\SAMLBase\Configuration;
 
-use Wizkunde\SAML2PHP\Configuration\UniqueID;
-use Wizkunde\SAML2PHP\Configuration;
+use Wizkunde\SAMLBase\Configuration\UniqueID;
+use Wizkunde\SAMLBase\Configuration;
 
 class UniqueIDTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Wizkunde\SAML2PHP\Claim;
+namespace Wizkunde\SAMLBase\Claim;
 
 class Attributes
 {

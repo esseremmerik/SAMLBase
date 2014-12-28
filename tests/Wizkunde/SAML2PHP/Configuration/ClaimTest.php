@@ -1,8 +1,8 @@
 <?php
 
-namespace Wizkunde\SAML2PHP\Configuration;
+namespace Wizkunde\SAMLBase\Configuration;
 
-use Wizkunde\SAML2PHP\Configuration\Claim;
+use Wizkunde\SAMLBase\Configuration\Claim;
 
 class ClaimTest extends \PHPUnit_Framework_TestCase
 {

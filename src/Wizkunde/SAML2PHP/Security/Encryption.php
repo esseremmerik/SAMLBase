@@ -1,12 +1,12 @@
 <?php
 
-namespace Wizkunde\SAML2PHP\Security;
+namespace Wizkunde\SAMLBase\Security;
 
-use Wizkunde\SAML2PHP\Certificate;
+use Wizkunde\SAMLBase\Certificate;
 
 /**
  * Class Encryption
- * @package Wizkunde\SAML2PHP\Security
+ * @package Wizkunde\SAMLBase\Security
  */
 class Encryption extends \XMLSecEnc
 {

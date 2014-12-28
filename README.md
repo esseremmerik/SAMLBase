@@ -1,4 +1,4 @@
-SAML2PHP
+SAMLBase
 =======
 
 ##Introduction
@@ -29,9 +29,8 @@ Thats all!
     TODO
         1. Support SOAP and Artifact binding
         2. Handle a Single Logout Request
-        3. Give the library a better name, SAML2PHP is lame.
-        4. Unit Tests
-        5. Determine what we need caches for
+        3. Unit Tests
+        4. Make sure we can be a Attribute Authority (AttributeRequest / AttributeResponse)
 
 ## Examples (relative to package root)
 

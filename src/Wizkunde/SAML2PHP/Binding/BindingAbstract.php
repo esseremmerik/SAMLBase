@@ -1,6 +1,6 @@
 <?php
 
-namespace Wizkunde\SAML2PHP\Binding;
+namespace Wizkunde\SAMLBase\Binding;
 
 abstract class BindingAbstract implements BindingInterface
 {

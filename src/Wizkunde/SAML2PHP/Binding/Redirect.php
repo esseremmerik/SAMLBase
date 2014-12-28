@@ -1,13 +1,13 @@
 <?php
 
-namespace Wizkunde\SAML2PHP\Binding;
+namespace Wizkunde\SAMLBase\Binding;
 
 /**
  * Class Redirect
  *
  * Redirect binding that uses HTTP-GET as a transport for a SAML request
  *
- * @package Wizkunde\SAML2PHP\Binding
+ * @package Wizkunde\SAMLBase\Binding
  */
 class Redirect extends BindingAbstract
 {

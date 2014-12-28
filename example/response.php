@@ -21,46 +21,46 @@ $container->setParameter('IsPassive', 'false');
 $container->setParameter('NameIDFormat', 'testNameId');
 $container->setParameter('ComparisonLevel', 'exact');
 
-$container->register('twig_loader', 'Twig_Loader_Filesystem')->addArgument('src/Wizkunde/SAML2PHP/Template/Twig');
+$container->register('twig_loader', 'Twig_Loader_Filesystem')->addArgument('src/Wizkunde/SAMLBase/Template/Twig');
 $container->register('twig', 'Twig_Environment')->addArgument(new Symfony\Component\DependencyInjection\Reference('twig_loader'));
 
-$container->register('SigningCertificate', 'Wizkunde\SAML2PHP\Certificate')
+$container->register('SigningCertificate', 'Wizkunde\SAMLBase\Certificate')
     ->addArgument($certData['privatekey'])
     ->addArgument($certData['certificate'])
     ->addArgument($certData['passphrase']);
 
-$container->register('EncryptionCertificate', 'Wizkunde\SAML2PHP\Certificate')
+$container->register('EncryptionCertificate', 'Wizkunde\SAMLBase\Certificate')
     ->addArgument($certData['privatekey'])
     ->addArgument($certData['certificate'])
     ->addArgument($certData['passphrase']);
 
-$container->register('encryption', 'Wizkunde\SAML2PHP\Security\Encryption')
+$container->register('encryption', 'Wizkunde\SAMLBase\Security\Encryption')
     ->addMethodCall('setCertificate',array(new Symfony\Component\DependencyInjection\Reference('EncryptionCertificate')));
 
-$container->register('signature', 'Wizkunde\SAML2PHP\Security\Signature')
+$container->register('signature', 'Wizkunde\SAMLBase\Security\Signature')
     ->addMethodCall('setCertificate',array(new Symfony\Component\DependencyInjection\Reference('SigningCertificate')));
 
-$container->register('unique_id_generator', 'Wizkunde\SAML2PHP\Configuration\UniqueID');
-$container->register('timestamp_generator', 'Wizkunde\SAML2PHP\Configuration\Timestamp');
+$container->register('unique_id_generator', 'Wizkunde\SAMLBase\Configuration\UniqueID');
+$container->register('timestamp_generator', 'Wizkunde\SAMLBase\Configuration\Timestamp');
 /**
  * Setup the Metadata resolve service
  */
 $container->register('guzzle_http', 'GuzzleHttp\Client');
-$container->register('resolver', 'Wizkunde\SAML2PHP\Metadata\ResolveService')
+$container->register('resolver', 'Wizkunde\SAMLBase\Metadata\ResolveService')
     ->addArgument(new Symfony\Component\DependencyInjection\Reference('guzzle_http'));
 
 /**
  * Resolve the metadata
  */
-$metadata = $container->get('resolver')->resolve(new \Wizkunde\SAML2PHP\Metadata\IDPMetadata(), 'http://idp.wizkunde.nl/simplesaml/saml2/idp/metadata.php');
+$metadata = $container->get('resolver')->resolve(new \Wizkunde\SAMLBase\Metadata\IDPMetadata(), 'http://idp.wizkunde.nl/simplesaml/saml2/idp/metadata.php');
 
 
-$container->register('response', 'Wizkunde\SAML2PHP\Response\AuthnResponse')
+$container->register('response', 'Wizkunde\SAMLBase\Response\AuthnResponse')
     ->addMethodCall('setContainer', array($container));
 
 $SAMLResponse = (isset($_POST['SAMLResponse'])) ?  $_POST['SAMLResponse'] : $_GET['SAMLResponse'];
 $responseData = $container->get('response')->decode($SAMLResponse);
 
-$attributes = new \Wizkunde\SAML2PHP\Claim\Attributes();
+$attributes = new \Wizkunde\SAMLBase\Claim\Attributes();
 
 var_dump($attributes->getAttributes($responseData));

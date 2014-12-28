@@ -1,10 +1,10 @@
 <?php
 
-namespace Wizkunde\SAML2PHP\Configuration;
+namespace Wizkunde\SAMLBase\Configuration;
 
 /**
  * Class Timestamp
- * @package Wizkunde\SAML2PHP\Configuration
+ * @package Wizkunde\SAMLBase\Configuration
  */
 class Timestamp
 {

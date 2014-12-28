@@ -1,11 +1,11 @@
 <?php
 
-namespace Wizkunde\SAML2PHP\Binding;
+namespace Wizkunde\SAMLBase\Binding;
 
 /**
  * Class BindingInterface
  *
- * @package Wizkunde\SAML2PHP\Binding
+ * @package Wizkunde\SAMLBase\Binding
  */
 interface BindingInterface
 {

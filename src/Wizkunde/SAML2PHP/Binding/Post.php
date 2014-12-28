@@ -1,13 +1,13 @@
 <?php
 
-namespace Wizkunde\SAML2PHP\Binding;
+namespace Wizkunde\SAMLBase\Binding;
 
 /**
  * Class Redirect
  *
  * POST binding that uses HTTP-POST as a transport for a SAML request
  *
- * @package Wizkunde\SAML2PHP\Binding
+ * @package Wizkunde\SAMLBase\Binding
  */
 class Post extends BindingAbstract
 {

@@ -1,23 +1,23 @@
 <?php
 
-namespace Wizkunde\SAML2PHP\Configuration;
+namespace Wizkunde\SAMLBase\Configuration;
 
 /**
  * Class UniqueID
- * @package Wizkunde\SAML2PHP\Configuration
+ * @package Wizkunde\SAMLBase\Configuration
  */
 class UniqueID
 {
     /**
      * @var string
      */
-    protected $prefix = 'SAML2PHP';
+    protected $prefix = 'SAMLBase';
 
     /**
      * @param string $prefix
      * @return string
      */
-    public function generate($prefix = 'SAML2PHP')
+    public function generate($prefix = 'SAMLBase')
     {
         $this->setPrefix($prefix);
 

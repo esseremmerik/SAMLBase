@@ -1,8 +1,8 @@
 <?php
 
-namespace Wizkunde\SAML2PHP\Security;
+namespace Wizkunde\SAMLBase\Security;
 
-use Wizkunde\SAML2PHP\Certificate;
+use Wizkunde\SAMLBase\Certificate;
 
 class Signature extends \XMLSecurityDSig
 {
