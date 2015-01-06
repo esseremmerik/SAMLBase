@@ -21,8 +21,7 @@ $container->setParameter('IsPassive', 'false');
 $container->setParameter('NameIDFormat', 'testNameId');
 $container->setParameter('ComparisonLevel', 'exact');
 
-$container->register('twig_loader', 'Twig_Loader_Filesystem');
-$container->get('twig_loader')->addPath('../src/Wizkunde/SAMLBase/Template/Twig', 'SAMLBase');
+$container->register('twig_loader', 'Twig_Loader_Filesystem')->addArgument('src/Wizkunde/SAMLBase/Template/Twig');
 $container->register('twig', 'Twig_Environment')->addArgument(new Symfony\Component\DependencyInjection\Reference('twig_loader'));
 
 $container->register('SigningCertificate', 'Wizkunde\SAMLBase\Certificate')

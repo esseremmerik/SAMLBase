@@ -92,7 +92,7 @@ abstract class BindingAbstract implements BindingInterface
 
     public function buildRequest($requestType = 'AuthnRequest')
     {
-        $requestTemplate = $this->getContainer()->get('twig')->render('@SAMLBase:' . $requestType . '.xml.twig',
+        $requestTemplate = $this->getContainer()->get('twig')->render($requestType . '.xml.twig',
             array(
                 'ProtocolBinding' => $this->getProtocolBinding(),
                 'UniqueID' => $this->getContainer()->get('unique_id_generator')->generate(),
