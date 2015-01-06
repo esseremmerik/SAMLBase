@@ -20,9 +20,9 @@ class AuthnResponse
     {
         $responseData = base64_decode($response);
 
-        $decryptedDocument = $this->getContainer()->get('encryption')->decrypt($responseData);
+        $decryptedDocument = $this->getContainer()->get('samlbase_encryption')->decrypt($responseData);
 
-        if ($this->getContainer()->get('signature')->verifyDOMDocument($decryptedDocument) == false) {
+        if ($this->getContainer()->get('samlbase_signature')->verifyDOMDocument($decryptedDocument) == false) {
             throw new \Exception('Could not verify Signature');
         }
 

@@ -11,8 +11,8 @@ class Metadata implements MetadataInterface
     {
         $metadataTemplate = $this->getContainer()->get('twig')->render('Metadata.xml.twig',
             array(
-                'UniqueID' => $this->getContainer()->get('unique_id_generator')->generate(),
-                'Timestamp' => $this->getContainer()->get('timestamp_generator')->generate()->toFormat(),
+                'UniqueID' => $this->getContainer()->get('samlbase_unique_id_generator')->generate(),
+                'Timestamp' => $this->getContainer()->get('samlbase_timestamp_generator')->generate()->toFormat(),
             )
         );
 

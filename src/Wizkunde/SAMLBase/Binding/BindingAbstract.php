@@ -95,8 +95,8 @@ abstract class BindingAbstract implements BindingInterface
         $requestTemplate = $this->getContainer()->get('twig')->render($requestType . '.xml.twig',
             array(
                 'ProtocolBinding' => $this->getProtocolBinding(),
-                'UniqueID' => $this->getContainer()->get('unique_id_generator')->generate(),
-                'Timestamp' => $this->getContainer()->get('timestamp_generator')->generate()->toFormat(),
+                'UniqueID' => $this->getContainer()->get('samlbase_unique_id_generator')->generate(),
+                'Timestamp' => $this->getContainer()->get('samlbase_timestamp_generator')->generate()->toFormat(),
                 'ForceAuthn' => $this->getContainer()->getParameter('ForceAuthn'),
                 'IsPassive' => $this->getContainer()->getParameter('IsPassive'),
                 'SPReturnUrl' => $this->getContainer()->getParameter('SPReturnUrl'),
@@ -115,7 +115,7 @@ abstract class BindingAbstract implements BindingInterface
         $document = new \DOMDocument();
         $document->loadXML($template);
 
-        $this->getContainer()->get('signature')->addSignature($document);
+        $this->getContainer()->get('samlbase_signature')->addSignature($document);
 
         return $document->saveXML();
     }
