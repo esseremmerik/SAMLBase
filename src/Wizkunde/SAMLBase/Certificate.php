@@ -11,27 +11,6 @@ class Certificate
     protected $type = \XMLSecurityKey::RSA_SHA1;
 
     /**
-     * Create a new Certificate
-     *
-     * Defaults to RSA_SHA1 cert
-     *
-     * @param string $type
-     * @param null $params
-     * @throws \Exception
-     */
-    public function __construct($privateKey, $publicKey, $passphrase = '', $type = \XMLSecurityKey::RSA_SHA1)
-    {
-        $this->setType($type);
-
-        if ($passphrase != '') {
-            $this->setPassphrase($passphrase);
-        }
-
-        $this->setPrivateKey($privateKey);
-        $this->setPublicKey($publicKey);
-    }
-
-    /**
      * Set the passphrase to unlock the private key
      *
      * @param $passphrase
@@ -56,10 +35,10 @@ class Certificate
      * @param $publicKey
      * @throws \Exception
      */
-    public function setPublicKey($publicKey, $params = array())
+    public function setPublicKey($publicKey, $type = \XMLSecurityKey::RSA_SHA1, $params = array(), $isFile = false)
     {
-        $this->publicKey = new \XMLSecurityKey($this->getType(), array_merge($params, array('type' => 'public')));
-        $this->publicKey->loadKey($publicKey);
+        $this->publicKey = new \XMLSecurityKey($type, array_merge($params, array('type' => 'public')));
+        $this->publicKey->loadKey($publicKey, $isFile);
 
         $this->certificate = $publicKey;
     }
@@ -80,15 +59,15 @@ class Certificate
      * @param $privateKey
      * @throws \Exception
      */
-    public function setPrivateKey($privateKey, $params = array())
+    public function setPrivateKey($privateKey, $type = \XMLSecurityKey::RSA_SHA1, $params = array(), $isFile = false)
     {
-        $this->privateKey = new \XMLSecurityKey($this->getType(), array_merge($params, array('type' => 'private')));
+        $this->privateKey = new \XMLSecurityKey($type, array_merge($params, array('type' => 'private')));
 
         if ($this->passphrase != '') {
             $this->privateKey->passphrase = $this->passphrase;
         }
 
-        $this->privateKey->loadKey($privateKey);
+        $this->privateKey->loadKey($privateKey, $isFile);
     }
 
     public function getPrivateKey()
