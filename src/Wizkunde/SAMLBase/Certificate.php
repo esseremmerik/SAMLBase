@@ -35,7 +35,7 @@ class Certificate
      * @param $publicKey
      * @throws \Exception
      */
-    public function setPublicKey($publicKey, $type = \XMLSecurityKey::RSA_SHA1, $params = array(), $isFile = false)
+    public function setPublicKey($publicKey, $isFile = false, $type = \XMLSecurityKey::RSA_SHA1, $params = array())
     {
         $this->publicKey = new \XMLSecurityKey($type, array_merge($params, array('type' => 'public')));
         $this->publicKey->loadKey($publicKey, $isFile);
@@ -59,7 +59,7 @@ class Certificate
      * @param $privateKey
      * @throws \Exception
      */
-    public function setPrivateKey($privateKey, $type = \XMLSecurityKey::RSA_SHA1, $params = array(), $isFile = false)
+    public function setPrivateKey($privateKey, $isFile = false, $type = \XMLSecurityKey::RSA_SHA1, $params = array())
     {
         $this->privateKey = new \XMLSecurityKey($type, array_merge($params, array('type' => 'private')));
 
