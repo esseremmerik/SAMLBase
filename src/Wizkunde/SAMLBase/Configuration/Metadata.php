@@ -9,7 +9,7 @@ class Metadata implements MetadataInterface
      */
     public function getMetadata()
     {
-        $metadataTemplate = $this->getContainer()->get('twig')->render('Metadata.xml.twig',
+        $metadataTemplate = $this->getContainer()->get('twig')->render('@SAMLBase:Metadata.xml.twig',
             array(
                 'UniqueID' => $this->getContainer()->get('unique_id_generator')->generate(),
                 'Timestamp' => $this->getContainer()->get('timestamp_generator')->generate()->toFormat(),
