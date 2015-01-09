@@ -6,7 +6,7 @@ namespace Wizkunde\SAMLBase\Configuration;
  * Class UniqueID
  * @package Wizkunde\SAMLBase\Configuration
  */
-class UniqueID
+class UniqueID implements UniqueIDInterface
 {
     /**
      * @var string

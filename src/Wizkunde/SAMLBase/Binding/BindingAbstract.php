@@ -2,22 +2,24 @@
 
 namespace Wizkunde\SAMLBase\Binding;
 
+use Wizkunde\SAMLBase\Configuration\Settings;
+use Wizkunde\SAMLBase\Configuration\Timestamp;
+use Wizkunde\SAMLBase\Configuration\UniqueID;
+
 abstract class BindingAbstract implements BindingInterface
 {
     const BINDING_REDIRECT = 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect';
     const BINDING_POST = 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST';
 
+    protected $signatureService = null;
+    protected $twigService = null;
+    protected $uniqueIdService = null;
+    protected $timestampService = null;
+
     /**
      * @var Binding that we use for the current protocol
      */
     protected $protocolBinding = null;
-
-    /**
-     * Contains the dependency injection container
-     *
-     * @var null
-     */
-    protected $container = null;
 
     /**
      * The location in the metadata that has the current bindings information
@@ -37,9 +39,101 @@ abstract class BindingAbstract implements BindingInterface
      */
     protected $targetUrl = null;
 
+    /**
+     * Set the settings used for the connection
+     *
+     * @var array
+     */
+    protected $settings = null;
+
+    /**
+     * @return array
+     */
+    public function getSettings()
+    {
+        return $this->settings;
+    }
+
+    /**
+     * @return null
+     */
+    public function getSignatureService()
+    {
+        return $this->signatureService;
+    }
+
+    /**
+     * @param null $signatureService
+     */
+    public function setSignatureService($signatureService)
+    {
+        $this->signatureService = $signatureService;
+    }
+
+    /**
+     * @return null
+     */
+    public function getTwigService()
+    {
+        return $this->twigService;
+    }
+
+    /**
+     * @param null $twigService
+     */
+    public function setTwigService($twigService)
+    {
+        $this->twigService = $twigService;
+    }
+
+    /**
+     * @return null
+     */
+    public function getUniqueIdService()
+    {
+        return $this->uniqueIdService;
+    }
+
+    /**
+     * @param null $uniqueIdService
+     */
+    public function setUniqueIdService(UniqueID $uniqueIdService)
+    {
+        $this->uniqueIdService = $uniqueIdService;
+    }
+
+    /**
+     * @return null
+     */
+    public function getTimestampService()
+    {
+        return $this->timestampService;
+    }
+
+    /**
+     * @param null $timestampService
+     */
+    public function setTimestampService(Timestamp $timestampService)
+    {
+        $this->timestampService = $timestampService;
+    }
+
+
+    /**
+     * @param array $settings
+     */
+    public function setSettings(Settings $settings)
+    {
+        $this->settings = $settings;
+
+        return $this;
+    }
+
     public function setMetadata($metadata)
     {
         $this->metadata = $metadata;
+
+        return $this;
     }
 
     /**
@@ -52,6 +146,8 @@ abstract class BindingAbstract implements BindingInterface
         }
 
         $this->targetUrl = $this->metadata[$this->metadataBindingLocation]['Location'];
+
+        return $this;
     }
 
     /**
@@ -70,19 +166,11 @@ abstract class BindingAbstract implements BindingInterface
         $this->setTargetUrlFromMetadata();
     }
 
-    public function setContainer($container)
-    {
-        $this->container = $container;
-    }
-
-    public function getContainer()
-    {
-        return $this->container;
-    }
-
     public function setProtocolBinding($binding)
     {
         $this->protocolBinding = $binding;
+
+        return $this;
     }
 
     public function getProtocolBinding()
@@ -92,21 +180,22 @@ abstract class BindingAbstract implements BindingInterface
 
     public function buildRequest($requestType = 'AuthnRequest')
     {
-        $requestTemplate = $this->getContainer()->get('twig')->render($requestType . '.xml.twig',
+        $requestTemplate = $this->getTwigService()->render($requestType . '.xml.twig',
             array(
                 'ProtocolBinding' => $this->getProtocolBinding(),
-                'UniqueID' => $this->getContainer()->get('samlbase_unique_id_generator')->generate(),
-                'Timestamp' => $this->getContainer()->get('samlbase_timestamp_generator')->generate()->toFormat(),
-                'ForceAuthn' => $this->getContainer()->getParameter('ForceAuthn'),
-                'IsPassive' => $this->getContainer()->getParameter('IsPassive'),
-                'SPReturnUrl' => $this->getContainer()->getParameter('SPReturnUrl'),
-                'NameIDFormat' => $this->getContainer()->getParameter('NameIDFormat'),
-                'Issuer' => $this->getContainer()->getParameter('Issuer'),
-                'ComparisonLevel' => $this->getContainer()->getParameter('ComparisonLevel')
+                'UniqueID' => $this->getUniqueIdService()->generate(),
+                'Timestamp' => $this->getTimestampService()->generate()->toFormat(),
+                'ForceAuthn' => $this->getSettings()->getValue('ForceAuthn'),
+                'IsPassive' => $this->getSettings()->getValue('IsPassive'),
+                'SPReturnUrl' => $this->getSettings()->getValue('SPReturnUrl'),
+                'NameIDFormat' => $this->getSettings()->getValue('NameIDFormat'),
+                'Issuer' => $this->getSettings()->getValue('Issuer'),
+                'ComparisonLevel' => $this->getSettings()->getValue('ComparisonLevel')
             )
         );
 
         $signedTemplate = $this->signTemplate($requestTemplate);
+
         return $this->prepareTemplateForRequest($signedTemplate);
     }
 
@@ -115,7 +204,7 @@ abstract class BindingAbstract implements BindingInterface
         $document = new \DOMDocument();
         $document->loadXML($template);
 
-        $this->getContainer()->get('samlbase_signature')->addSignature($document);
+        $this->getSignatureService()->addSignature($document);
 
         return $document->saveXML();
     }

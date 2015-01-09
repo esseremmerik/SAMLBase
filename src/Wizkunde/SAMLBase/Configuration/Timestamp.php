@@ -6,7 +6,7 @@ namespace Wizkunde\SAMLBase\Configuration;
  * Class Timestamp
  * @package Wizkunde\SAMLBase\Configuration
  */
-class Timestamp
+class Timestamp implements TimestampInterface
 {
     const SECONDS_MINUTE = 60;
     const SECONDS_HOUR = 3600;

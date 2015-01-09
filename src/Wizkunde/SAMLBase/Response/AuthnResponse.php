@@ -2,14 +2,51 @@
 
 namespace Wizkunde\SAMLBase\Response;
 
+use Wizkunde\SAMLBase\Security\Encryption;
+use Wizkunde\SAMLBase\Security\Signature;
+
 class AuthnResponse
 {
     /**
-     * Contains the dependency injection container
-     *
      * @var null
      */
-    protected $container = null;
+    protected $signatureService = null;
+    /**
+     * @var null
+     */
+    protected $encryptionService = null;
+
+    /**
+     * @return null
+     */
+    public function getSignatureService()
+    {
+        return $this->signatureService;
+    }
+
+    /**
+     * @param null $signatureService
+     */
+    public function setSignatureService(Signature $signatureInterface)
+    {
+        $this->signatureService = $signatureInterface;
+    }
+
+    /**
+     * @return null
+     */
+    public function getEncryptionService()
+    {
+        return $this->encryptionService;
+    }
+
+    /**
+     * @param null $encryptionService
+     */
+    public function setEncryptionService(Encryption $encryptionService)
+    {
+        $this->encryptionService = $encryptionService;
+    }
 
     /**
      * Handle the response string that we receive
@@ -20,22 +57,12 @@ class AuthnResponse
     {
         $responseData = base64_decode($response);
 
-        $decryptedDocument = $this->getContainer()->get('samlbase_encryption')->decrypt($responseData);
+        $decryptedDocument = $this->getEncryptionService()->decrypt($responseData);
 
-        if ($this->getContainer()->get('samlbase_signature')->verifyDOMDocument($decryptedDocument) == false) {
+        if ($this->getSignatureService()->verifyDOMDocument($decryptedDocument) == false) {
             throw new \Exception('Could not verify Signature');
         }
 
         return $decryptedDocument;
-    }
-
-    public function setContainer($container)
-    {
-        $this->container = $container;
-    }
-
-    public function getContainer()
-    {
-        return $this->container;
     }
 }

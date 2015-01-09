@@ -4,7 +4,7 @@ namespace Wizkunde\SAMLBase\Security;
 
 use Wizkunde\SAMLBase\Certificate;
 
-class Signature extends \XMLSecurityDSig
+class Signature extends \XMLSecurityDSig implements SignatureInterface
 {
     protected $certificate = null;
     protected $signingAlgorithm = '';

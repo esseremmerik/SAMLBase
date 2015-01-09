@@ -8,7 +8,7 @@ use Wizkunde\SAMLBase\Certificate;
  * Class Encryption
  * @package Wizkunde\SAMLBase\Security
  */
-class Encryption extends \XMLSecEnc
+class Encryption extends \XMLSecEnc implements EncryptionInterface
 {
     protected $certificate = null;
 
