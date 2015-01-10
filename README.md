@@ -25,10 +25,10 @@ Thats all!
         5. Pass thru returning attributes and claims
         6. Templates changed to twig
         7. Use a DIC to provide the classes with the necessary information
+        8. Handle a Single Logout Request
 
     TODO
         1. Support SOAP and Artifact binding
-        2. Handle a Single Logout Request
         3. Unit Tests
         4. Make sure we can be a Attribute Authority (AttributeRequest / AttributeResponse)
 
