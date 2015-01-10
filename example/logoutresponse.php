@@ -1,9 +1,10 @@
 <?php
 
+if(!isset($_POST['SAMLResponse']) && !isset($_GET['SAMLResponse'])) {
+    header('Location: attributes.php');
+}
+
 ini_set('display_errors', true);
-
-session_start();
-
 include_once('../vendor/autoload.php');
 
 $container = new Symfony\Component\DependencyInjection\ContainerBuilder();
@@ -33,10 +34,9 @@ $container->register('samlbase_idp_settings', 'Wizkunde\SAMLBase\Configuration\S
         'IsPassive' => 'false',
         'NameIDFormat' => 'testNameId',
         'ComparisonLevel' => 'exact',
-        'OptionalURLParameters'   =>
-            array(
-                'source' => 'saml'
-            )
+        'OptionalURLParameters'   => array(
+            'source' => 'saml'
+        )
     )));
 
 $container->register('samlbase_encryption', 'Wizkunde\SAMLBase\Security\Encryption')
@@ -47,6 +47,7 @@ $container->register('samlbase_signature', 'Wizkunde\SAMLBase\Security\Signature
 
 $container->register('samlbase_unique_id_generator', 'Wizkunde\SAMLBase\Configuration\UniqueID');
 $container->register('samlbase_timestamp_generator', 'Wizkunde\SAMLBase\Configuration\Timestamp');
+
 /**
  * Setup the Metadata resolve service
  */
@@ -58,31 +59,14 @@ $container->register('samlbase_metadata', 'Wizkunde\SAMLBase\Metadata\IDPMetadat
 /**
  * Resolve the metadata
  */
-$metadata = $container->get('resolver')->resolve($container->get('samlbase_metadata'), 'http://idp.wizkunde.nl/simplesaml/saml2/idp/metadata.php');
+$metadata = $container->get('resolver')->resolve(new \Wizkunde\SAMLBase\Metadata\IDPMetadata(), 'http://idp.wizkunde.nl/simplesaml/saml2/idp/metadata.php');
 
-// POST Binding
-$container->register('samlbase_binding_post', 'Wizkunde\SAMLBase\Binding\Post')
-    ->addMethodCall('setMetadata', array($metadata))
-    ->addMethodCall('setTwigService', array(new Symfony\Component\DependencyInjection\Reference('twig')))
-    ->addMethodCall('setUniqueIdService', array(new Symfony\Component\DependencyInjection\Reference('samlbase_unique_id_generator')))
-    ->addMethodCall('setTimestampService', array(new Symfony\Component\DependencyInjection\Reference('samlbase_timestamp_generator')))
-    ->addMethodCall('setSignatureService', array(new Symfony\Component\DependencyInjection\Reference('samlbase_signature')));
 
-// OR Redirect Binding
-$container->register('samlbase_binding_redirect', 'Wizkunde\SAMLBase\Binding\Redirect')
-    ->addMethodCall('setMetadata', array($metadata))
-    ->addMethodCall('setTwigService', array(new Symfony\Component\DependencyInjection\Reference('twig')))
-    ->addMethodCall('setUniqueIdService', array(new Symfony\Component\DependencyInjection\Reference('samlbase_unique_id_generator')))
-    ->addMethodCall('setTimestampService', array(new Symfony\Component\DependencyInjection\Reference('samlbase_timestamp_generator')))
-    ->addMethodCall('setSignatureService', array(new Symfony\Component\DependencyInjection\Reference('samlbase_signature')));
+$container->register('response', 'Wizkunde\SAMLBase\Response\AuthnResponse')
+    ->addMethodCall('setSignatureService', array(new Symfony\Component\DependencyInjection\Reference('samlbase_signature')))
+    ->addMethodCall('setEncryptionService', array(new Symfony\Component\DependencyInjection\Reference('samlbase_encryption')));
 
-$settings = $container->get('samlbase_idp_settings');
+$SAMLResponse = (isset($_POST['SAMLResponse'])) ?  $_POST['SAMLResponse'] : $_GET['SAMLResponse'];
+$responseData = $container->get('response')->decode($SAMLResponse);
 
-// Add our current login session id to the logout request
-if(isset($_SESSION['idp_sessionid'])) {
-    $settings->setValue('SessionIndex', $_SESSION['sso_session_id']);
-}
-
-$redirectUrl = $container->get('samlbase_binding_redirect')
-    ->setSettings($settings)
-    ->request('LogoutRequest');
+echo $responseData->version;die;

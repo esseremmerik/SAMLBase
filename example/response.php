@@ -4,6 +4,7 @@ if(!isset($_POST['SAMLResponse']) && !isset($_GET['SAMLResponse'])) {
     header('Location: attributes.php');
 }
 
+ini_set('display_errors', true);
 include_once('../vendor/autoload.php');
 
 $container = new Symfony\Component\DependencyInjection\ContainerBuilder();
@@ -48,6 +49,14 @@ $container->register('samlbase_unique_id_generator', 'Wizkunde\SAMLBase\Configur
 $container->register('samlbase_timestamp_generator', 'Wizkunde\SAMLBase\Configuration\Timestamp');
 
 /**
+ * Setup the Metadata resolve service
+ */
+$container->register('resolver', 'Wizkunde\SAMLBase\Metadata\ResolveService')
+    ->addArgument(new Symfony\Component\DependencyInjection\Reference('guzzle_http'));
+
+$container->register('samlbase_metadata', 'Wizkunde\SAMLBase\Metadata\IDPMetadata');
+
+/**
  * Resolve the metadata
  */
 $metadata = $container->get('resolver')->resolve(new \Wizkunde\SAMLBase\Metadata\IDPMetadata(), 'http://idp.wizkunde.nl/simplesaml/saml2/idp/metadata.php');
@@ -59,6 +68,12 @@ $container->register('response', 'Wizkunde\SAMLBase\Response\AuthnResponse')
 
 $SAMLResponse = (isset($_POST['SAMLResponse'])) ?  $_POST['SAMLResponse'] : $_GET['SAMLResponse'];
 $responseData = $container->get('response')->decode($SAMLResponse);
+
+$sessionId = new \Wizkunde\SAMLBase\Configuration\SessionID();
+$sessionId = $sessionId->getIdFromDocument($responseData);
+
+session_start();
+$_SESSION['sso_session_id'] = $sessionId;
 
 $attributes = new \Wizkunde\SAMLBase\Claim\Attributes();
 

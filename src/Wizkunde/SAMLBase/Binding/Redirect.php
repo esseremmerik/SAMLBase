@@ -22,7 +22,7 @@ class Redirect extends BindingAbstract
      */
     public function request($requestType = 'AuthnRequest')
     {
-        parent::request();
+        parent::request($requestType);
 
         $this->setProtocolBinding(self::BINDING_REDIRECT);
 

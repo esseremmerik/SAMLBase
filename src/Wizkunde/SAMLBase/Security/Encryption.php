@@ -48,6 +48,7 @@ class Encryption extends \XMLSecEnc implements EncryptionInterface
     public function decrypt($string)
     {
         $document = new \DOMDocument($string);
+
         $encryptedData = $this->locateEncryptedData($document);
 
         /**

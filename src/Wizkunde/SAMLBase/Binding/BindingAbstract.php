@@ -139,8 +139,10 @@ abstract class BindingAbstract implements BindingInterface
     /**
      * Do a request with the current binding
      */
-    public function setTargetUrlFromMetadata()
+    public function setTargetUrlFromMetadata($requestType = 'AuthnRequest')
     {
+        $this->metadataBindingLocation = ($requestType == 'LogoutRequest') ? 'SingleLogout' :  $this->metadataBindingLocation;
+
         if ($this->metadataBindingLocation == '' || !isset($this->metadata[$this->metadataBindingLocation])) {
             throw new \Exception('Cant initialize binding, no SingleSignOn binding information is known for the current binding');
         }
@@ -161,9 +163,9 @@ abstract class BindingAbstract implements BindingInterface
     /**
      * Mandatory steps for all request binding subcalls
      */
-    public function request()
+    public function request($requestType = 'AuthnRequest')
     {
-        $this->setTargetUrlFromMetadata();
+        $this->setTargetUrlFromMetadata($requestType);
     }
 
     public function setProtocolBinding($binding)
@@ -180,18 +182,14 @@ abstract class BindingAbstract implements BindingInterface
 
     public function buildRequest($requestType = 'AuthnRequest')
     {
+        $settings = $this->getSettings()->getValues();
+
         $requestTemplate = $this->getTwigService()->render($requestType . '.xml.twig',
-            array(
+            array_merge($settings, array(
                 'ProtocolBinding' => $this->getProtocolBinding(),
                 'UniqueID' => $this->getUniqueIdService()->generate(),
                 'Timestamp' => $this->getTimestampService()->generate()->toFormat(),
-                'ForceAuthn' => $this->getSettings()->getValue('ForceAuthn'),
-                'IsPassive' => $this->getSettings()->getValue('IsPassive'),
-                'SPReturnUrl' => $this->getSettings()->getValue('SPReturnUrl'),
-                'NameIDFormat' => $this->getSettings()->getValue('NameIDFormat'),
-                'Issuer' => $this->getSettings()->getValue('Issuer'),
-                'ComparisonLevel' => $this->getSettings()->getValue('ComparisonLevel')
-            )
+            ))
         );
 
         $signedTemplate = $this->signTemplate($requestTemplate);
