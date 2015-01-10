@@ -30,7 +30,11 @@ $container->register('samlbase_idp_settings', 'Wizkunde\SAMLBase\Configuration\S
         'ForceAuthn' => 'true',
         'IsPassive' => 'false',
         'NameIDFormat' => 'testNameId',
-        'ComparisonLevel' => 'exact'
+        'ComparisonLevel' => 'exact',
+        'OptionalURLParameters'   =>
+            array(
+                'source' => 'saml'
+            )
     )));
 
 $container->register('samlbase_encryption', 'Wizkunde\SAMLBase\Security\Encryption')
