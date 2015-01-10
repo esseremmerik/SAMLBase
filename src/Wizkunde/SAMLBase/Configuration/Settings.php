@@ -11,9 +11,13 @@ use Wizkunde\SAMLBase\Configuration\SettingsInterface;
 class Settings implements SettingsInterface
 {
     /**
+     * Add default values that will not error in case you request them
+     *
      * @var array
      */
-    protected $values = array();
+    protected $values = array(
+        'OptionalIdpRequestFields'   => array()
+    );
 
     /**
      * @param $key
@@ -46,19 +50,6 @@ class Settings implements SettingsInterface
      * @return $this
      */
     public function setValues($values = array())
-    {
-        if(is_array($values) && count($values) > 0) {
-            $this->values = $values;
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param array $values
-     * @return $this
-     */
-    public function addValues($values = array())
     {
         if(is_array($values) && count($values) > 0) {
             $this->values = array_merge($this->values, $values);

@@ -31,10 +31,4 @@ interface SettingsInterface
      * @return mixed
      */
     public function setValues($values = array());
-
-    /**
-     * @param array $values
-     * @return mixed
-     */
-    public function addValues($values = array());
 }
