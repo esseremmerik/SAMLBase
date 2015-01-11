@@ -6,7 +6,9 @@
                     ForceAuthn="{{ ForceAuthn }}"
                     IsPassive="{{ IsPassive }}"
                     ProtocolBinding="{{ ProtocolBinding }}"
-                    AssertionConsumerServiceURL="{{ SPReturnUrl }}">
+                    AssertionConsumerServiceURL="{{ SPReturnUrl }}"
+                    AssertionConsumerServiceIndex="0"
+                    AttributeConsumingServiceIndex="0">
 
     <saml:Issuer xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">{{ Issuer }}</saml:Issuer>
 

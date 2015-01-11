@@ -15,7 +15,7 @@ class Post extends BindingAbstract
      * The location in the metadata that has the current bindings information
      * @var string
      */
-    protected $metadataBindingLocation = 'SSOPOST';
+    protected $metadataBindingLocation = 'SingleSignOnServicePost';
 
     /**
      * Do a request with the current binding
@@ -27,23 +27,16 @@ class Post extends BindingAbstract
         $this->setProtocolBinding(self::BINDING_POST);
 
         echo '<html><head></head><body onload="document.postform.submit();">';
-        $form = $this->buildPostForm($this->getTargetUrl(), $requestType);
+        $form = $this->buildPostForm($requestType);
         echo $form;
         echo '</body></html>';
         exit;
     }
 
-    protected function buildPostForm($url = '', $requestType = 'AuthnRequest')
+    protected function buildPostForm($requestType = 'AuthnRequest')
     {
-        if(count($this->getSettings()->getValue('OptionalURLParameters')) > 0) {
-            foreach($this->getSettings()->getValue('OptionalURLParameters') as $key => $value) {
-                $url .= '&' . $key . '=' . $value;
-            }
-        }
-
-        $form = '<form method="POST" action="' . $url . '" name="postform">';
+        $form = '<form method="POST" action="' . $this->buildRequestUrl() . '" name="postform">';
         $form .= '<input type="hidden" name="SAMLRequest" value=" ' . (string) $this->buildRequest($requestType) . '">';
-
         $form .= '</form>';
 
         return $form;

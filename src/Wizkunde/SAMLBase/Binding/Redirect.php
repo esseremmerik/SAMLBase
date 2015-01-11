@@ -15,7 +15,7 @@ class Redirect extends BindingAbstract
      * The location in the metadata that has the current bindings information
      * @var string
      */
-    protected $metadataBindingLocation = 'SSORedirect';
+    protected $metadataBindingLocation = 'SingleSignOnServiceRedirect';
 
     /**
      * Do a request with the current binding
@@ -26,13 +26,7 @@ class Redirect extends BindingAbstract
 
         $this->setProtocolBinding(self::BINDING_REDIRECT);
 
-        $targetUrl = (string)$this->getTargetUrl() . '?SAMLRequest=' . $this->buildRequest($requestType);
-
-        if(count($this->getSettings()->getValue('OptionalURLParameters')) > 0) {
-            foreach($this->getSettings()->getValue('OptionalURLParameters') as $key => $value) {
-                $targetUrl .= '&' . $key . '=' . $value;
-            }
-        }
+        $targetUrl = (string)$this->buildRequestUrl() . '&SAMLRequest=' . $this->buildRequest($requestType);
 
         header('Location: ' .$targetUrl );
     }

@@ -41,7 +41,7 @@ $container->register('timestamp_generator', 'Wizkunde\SAMLBase\Configuration\Tim
 /**
  * Setup the Metadata resolve service
  */
-$container->register('guzzle_http', 'GuzzleHttp\Client');
+$container->register('guzzle_http', 'Guzzle\Http\Client');
 $container->register('resolver', 'Wizkunde\SAMLBase\Metadata\ResolveService')
     ->addArgument(new Symfony\Component\DependencyInjection\Reference('guzzle_http'));
 

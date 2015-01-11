@@ -16,7 +16,7 @@ class Settings implements SettingsInterface
      * @var array
      */
     protected $values = array(
-        'OptionalIdpRequestFields'   => array()
+        'OptionalURLParameters'   => array()
     );
 
     /**

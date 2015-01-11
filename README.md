@@ -13,7 +13,7 @@ You can sign requests with a certificate. The response can be read, decrypted, v
 
 Thats all!
 
-## Current Status (Last updated 14-11-2014)
+## Current Status (Last updated 11-01-2015)
 
     There is more to do than what i've listed here, but this is to get the framework started
 
@@ -26,9 +26,9 @@ Thats all!
         6. Templates changed to twig
         7. Use a DIC to provide the classes with the necessary information
         8. Handle a Single Logout Request
+        9. Support SOAP and Artifact binding
 
     TODO
-        1. Support SOAP and Artifact binding
         3. Unit Tests
         4. Make sure we can be a Attribute Authority (AttributeRequest / AttributeResponse)
 
@@ -38,7 +38,8 @@ Thats all!
     /example/response.php - Example AuthNResponse target file (POST Binding)
     /example/attributes.php - WIP AttributeQuery request after being logged in (requires attributequery service on the IDP)
     /example/logout.php - WIP Logout request
+    /example/logoutresponse.php - Example LogoutResponse handling
     
 ## License information
-    This code is released under the GPL v3 license
-    Info about the license can be found here:  http://www.gnu.org/copyleft/gpl.html
+    This code is released under the LGPL v2.1 license
+    Info about the license can be found here:  https://www.gnu.org/licenses/lgpl-2.1.html

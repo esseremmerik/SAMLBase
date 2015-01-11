@@ -12,7 +12,7 @@ $container = new Symfony\Component\DependencyInjection\ContainerBuilder();
 $container->register('twig_loader', 'Twig_Loader_Filesystem')->addArgument('../src/Wizkunde/SAMLBase/Template/Twig');
 $container->register('twig', 'Twig_Environment')->addArgument(new Symfony\Component\DependencyInjection\Reference('twig_loader'));
 
-$container->register('guzzle_http', 'GuzzleHttp\Client');
+$container->register('guzzle_http', 'Guzzle\Http\Client');
 
 $container->register('SigningCertificate', 'Wizkunde\SAMLBase\Certificate')
     ->addMethodCall('setPassphrase', array('test1234'))

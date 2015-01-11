@@ -2,7 +2,7 @@
 
 namespace Wizkunde\SAMLBase\Metadata;
 
-use GuzzleHttp\Client;
+use Guzzle\Http\Client;
 
 class ResolveService
 {
@@ -19,8 +19,9 @@ class ResolveService
      */
     public function resolve(MetadataAbstract $metadataClass, $metadataUrl)
     {
-        $response = $this->getClient()->get($metadataUrl);
-        $xmlDocument = (string)$response->getBody();
+        $response = $this->getClient()->get($metadataUrl)->send();
+
+        $xmlDocument = (string) $response->getBody();
 
         return $metadataClass->mapMetadata($xmlDocument);
     }

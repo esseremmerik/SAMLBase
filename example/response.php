@@ -1,6 +1,6 @@
 <?php
 
-if(!isset($_POST['SAMLResponse']) && !isset($_GET['SAMLResponse'])) {
+if(!isset($_POST['SAMLResponse']) && !isset($_GET['SAMLResponse']) && !isset($_REQUEST['SAMLart'])) {
     header('Location: attributes.php');
 }
 
@@ -12,7 +12,7 @@ $container = new Symfony\Component\DependencyInjection\ContainerBuilder();
 $container->register('twig_loader', 'Twig_Loader_Filesystem')->addArgument('../src/Wizkunde/SAMLBase/Template/Twig');
 $container->register('twig', 'Twig_Environment')->addArgument(new Symfony\Component\DependencyInjection\Reference('twig_loader'));
 
-$container->register('guzzle_http', 'GuzzleHttp\Client');
+$container->register('guzzle_http', 'Guzzle\Http\Client');
 
 $container->register('SigningCertificate', 'Wizkunde\SAMLBase\Certificate')
     ->addMethodCall('setPassphrase', array('test1234'))
@@ -34,9 +34,6 @@ $container->register('samlbase_idp_settings', 'Wizkunde\SAMLBase\Configuration\S
         'IsPassive' => 'false',
         'NameIDFormat' => 'testNameId',
         'ComparisonLevel' => 'exact',
-        'OptionalURLParameters'   => array(
-            'source' => 'saml'
-        )
     )));
 
 $container->register('samlbase_encryption', 'Wizkunde\SAMLBase\Security\Encryption')
@@ -66,8 +63,22 @@ $container->register('response', 'Wizkunde\SAMLBase\Response\AuthnResponse')
     ->addMethodCall('setSignatureService', array(new Symfony\Component\DependencyInjection\Reference('samlbase_signature')))
     ->addMethodCall('setEncryptionService', array(new Symfony\Component\DependencyInjection\Reference('samlbase_encryption')));
 
-$SAMLResponse = (isset($_POST['SAMLResponse'])) ?  $_POST['SAMLResponse'] : $_GET['SAMLResponse'];
-$responseData = $container->get('response')->decode($SAMLResponse);
+// Artifact Resolution over SOAP
+$container->register('samlbase_binding_artifact', 'Wizkunde\SAMLBase\Binding\Artifact')
+    ->addMethodCall('setMetadata', array($metadata))
+    ->addMethodCall('setTwigService', array(new Symfony\Component\DependencyInjection\Reference('twig')))
+    ->addMethodCall('setUniqueIdService', array(new Symfony\Component\DependencyInjection\Reference('samlbase_unique_id_generator')))
+    ->addMethodCall('setTimestampService', array(new Symfony\Component\DependencyInjection\Reference('samlbase_timestamp_generator')))
+    ->addMethodCall('setSignatureService', array(new Symfony\Component\DependencyInjection\Reference('samlbase_signature')))
+    ->addMethodCall('setHttpService', array(new Symfony\Component\DependencyInjection\Reference('guzzle_http')));
+
+if(isset($_REQUEST['SAMLart'])) {
+    $responseData = $container->get('samlbase_binding_artifact')
+        ->setSettings($container->get('samlbase_idp_settings'))
+        ->resolveArtifact($_REQUEST['SAMLart']);
+} else if(isset($_REQUEST['SAMLResponse'])) {
+    $responseData = $container->get('response')->decode($_REQUEST['SAMLResponse']);
+}
 
 $sessionId = new \Wizkunde\SAMLBase\Configuration\SessionID();
 $sessionId = $sessionId->getIdFromDocument($responseData);

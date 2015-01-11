@@ -9,7 +9,7 @@ $container = new Symfony\Component\DependencyInjection\ContainerBuilder();
 $container->register('twig_loader', 'Twig_Loader_Filesystem')->addArgument('../src/Wizkunde/SAMLBase/Template/Twig');
 $container->register('twig', 'Twig_Environment')->addArgument(new Symfony\Component\DependencyInjection\Reference('twig_loader'));
 
-$container->register('guzzle_http', 'GuzzleHttp\Client');
+$container->register('guzzle_http', 'Guzzle\Http\Client');
 
 $container->register('SigningCertificate', 'Wizkunde\SAMLBase\Certificate')
     ->addMethodCall('setPassphrase', array('test1234'))
@@ -64,7 +64,8 @@ $container->register('samlbase_binding_post', 'Wizkunde\SAMLBase\Binding\Post')
     ->addMethodCall('setTwigService', array(new Symfony\Component\DependencyInjection\Reference('twig')))
     ->addMethodCall('setUniqueIdService', array(new Symfony\Component\DependencyInjection\Reference('samlbase_unique_id_generator')))
     ->addMethodCall('setTimestampService', array(new Symfony\Component\DependencyInjection\Reference('samlbase_timestamp_generator')))
-    ->addMethodCall('setSignatureService', array(new Symfony\Component\DependencyInjection\Reference('samlbase_signature')));
+    ->addMethodCall('setSignatureService', array(new Symfony\Component\DependencyInjection\Reference('samlbase_signature')))
+    ->addMethodCall('setHttpService', array(new Symfony\Component\DependencyInjection\Reference('guzzle_http')));
 
 // OR Redirect Binding
 $container->register('samlbase_binding_redirect', 'Wizkunde\SAMLBase\Binding\Redirect')
@@ -72,7 +73,8 @@ $container->register('samlbase_binding_redirect', 'Wizkunde\SAMLBase\Binding\Red
     ->addMethodCall('setTwigService', array(new Symfony\Component\DependencyInjection\Reference('twig')))
     ->addMethodCall('setUniqueIdService', array(new Symfony\Component\DependencyInjection\Reference('samlbase_unique_id_generator')))
     ->addMethodCall('setTimestampService', array(new Symfony\Component\DependencyInjection\Reference('samlbase_timestamp_generator')))
-    ->addMethodCall('setSignatureService', array(new Symfony\Component\DependencyInjection\Reference('samlbase_signature')));
+    ->addMethodCall('setSignatureService', array(new Symfony\Component\DependencyInjection\Reference('samlbase_signature')))
+    ->addMethodCall('setHttpService', array(new Symfony\Component\DependencyInjection\Reference('guzzle_http')));
 
 $redirectUrl = $container->get('samlbase_binding_redirect')
     ->setSettings($container->get('samlbase_idp_settings'))

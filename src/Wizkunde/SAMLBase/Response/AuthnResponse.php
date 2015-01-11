@@ -63,6 +63,6 @@ class AuthnResponse
             throw new \Exception('Could not verify Signature');
         }
 
-        return $decryptedDocument;
+        return $decryptedDocument->version;
     }
 }

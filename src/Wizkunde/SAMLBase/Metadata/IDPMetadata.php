@@ -58,7 +58,7 @@ class IDPMetadata extends MetadataAbstract
             ),
         ),
 
-        'SingleLogout' => array(
+        'SingleLogoutService' => array(
             '//md:IDPSSODescriptor/md:SingleLogoutService' => array(
                 'Attributes' => array(
                     'Binding' => 'Binding',
@@ -68,7 +68,17 @@ class IDPMetadata extends MetadataAbstract
             ),
         ),
 
-        'SSORedirect' => array(
+        'ArtifactResolutionService' => array(
+            '//md:IDPSSODescriptor/md:ArtifactResolutionService' => array(
+                'Attributes' => array(
+                    'Binding' => 'Binding',
+                    'Location' => 'Location'
+                ),
+                'Multiple' => true
+            ),
+        ),
+
+        'SingleSignOnServiceRedirect' => array(
             '//md:IDPSSODescriptor/md:SingleSignOnService[@Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"]' => array(
                 'Attributes' => array(
                     'Binding' => 'Binding',
@@ -78,7 +88,7 @@ class IDPMetadata extends MetadataAbstract
             )
         ),
 
-        'SSOPOST' => array(
+        'SingleSignOnServicePost' => array(
             '//md:IDPSSODescriptor/md:SingleSignOnService[@Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"]' => array(
                 'Attributes' => array(
                     'Binding' => 'Binding',
@@ -87,5 +97,7 @@ class IDPMetadata extends MetadataAbstract
                 'Multiple' => true
             )
         )
+
+
     );
 }
