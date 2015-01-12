@@ -13,11 +13,9 @@ You can sign requests with a certificate. The response can be read, decrypted, v
 
 Thats all!
 
-## Current Status (Last updated 11-01-2015)
+## Roadmap (Last updated 12-01-2015)
 
-    There is more to do than what i've listed here, but this is to get the framework started
-
-    DONE
+    BASICS we have achieved so far
         1. Resolve metadata from an IDP into a PHP array that we can work with
         2. Do a AuthNRequest via Redirect Binding
         3. Do a AuthNRequest via POST Binding
@@ -28,9 +26,19 @@ Thats all!
         8. Handle a Single Logout Request
         9. Support SOAP and Artifact binding
 
-    TODO
-        3. Unit Tests
-        4. Make sure we can be a Attribute Authority (AttributeRequest / AttributeResponse)
+    01-02-2015
+        1. Increase the amount of Unit Tests
+        2. Add Scoping and Conditions to AuthnRequest
+        3. Support for SP Initiated Artifact Resolution
+    
+    01-03-2015
+        1. Add AttributeQuery and AttributeResponse
+        2. Find a better way to store the SessionID and RelayState
+        
+    FUTURE
+        1. Make sure we can be a Attribute Authority (AttributeRequest / AttributeResponse)
+        2. Increase the SAML2 scope compatibility of the library
+        3. Add the PAOS Binding (very tropical, hardly used)
 
 ## Examples (relative to package root)
 
