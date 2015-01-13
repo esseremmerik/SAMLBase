@@ -34,10 +34,19 @@ Thats all!
     01-03-2015
         1. Add AttributeQuery and AttributeResponse
         2. Find a better way to store the SessionID and RelayState
+        3. Apply Assertions
+        
+    01-04-2015
+        1. Support multiple identifier types (BaseID, NameID, EncryptedID)
+        2. Add Statement Element support
+        
+    01-05-2015
+        1. Add Advice Element support
         
     FUTURE
         1. Make sure we can be a Attribute Authority (AttributeRequest / AttributeResponse)
         2. Increase the SAML2 scope compatibility of the library
+        3. Add the URI Binding (never seen this being used in the past)
         3. Add the PAOS Binding (very tropical, hardly used)
 
 ## Examples (relative to package root)
