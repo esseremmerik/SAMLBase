@@ -1,5 +1,18 @@
 {
     "name": "wizkunde/samlbase",
+    "type": "library",
+    "description": "Boilerplate library for SAML2 in PHP",
+    "keywords": ["saml2", "SAML2", "SAMLBase", "PHP", "SSO"],
+    "homepage": "https://github.com/Wizkunde/SAMLBase",
+    "license": "LGPL-2.1",
+    "authors": [
+        {
+            "name": "Ron van der Molen",
+            "email": "ron@wizkunde.nl",
+            "homepage": "http://www.wizkunde.nl",
+            "role": "CEO"
+        }
+    ],
     "require": {
         "symfony/dependency-injection": "~2.3",
         "xmlseclibs/xmlseclibs": "dev-master",
