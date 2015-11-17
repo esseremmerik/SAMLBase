@@ -15,7 +15,7 @@
     ],
     "require": {
         "symfony/dependency-injection": "~2.3",
-        "xmlseclibs/xmlseclibs": "dev-master",
+        "xmlseclibs/xmlseclibs": "dev-master@dev",
         "guzzle/guzzle": "3.9.*@dev",
         "twig/twig": "1.22.*@dev"
     },
