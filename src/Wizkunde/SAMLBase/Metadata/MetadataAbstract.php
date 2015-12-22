@@ -66,6 +66,10 @@ abstract class MetadataAbstract
     {
         $this->metadata = new \SimpleXMLElement($metadata);
 
+        foreach($this->metadata->getDocNamespaces(true) as $strPrefix => $strNamespace) {
+            $this->metadata->registerXPathNamespace($strPrefix,$strNamespace);
+        }
+
         $mappings = array();
         foreach ($this->xpathMappings as $namespace => $xpathMappings) {
             foreach ($xpathMappings as $query => $mapping) {
