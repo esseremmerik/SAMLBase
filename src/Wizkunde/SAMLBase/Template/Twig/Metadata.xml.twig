@@ -15,10 +15,7 @@
                                       Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP"
                                       Location="{{ postURL }}"/>
         <md:NameIDFormat>
-            urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress
-        </md:NameIDFormat>
-        <md:NameIDFormat>
-            urn:oasis:names:tc:SAML:2.0:nameid-format:transient
+            urn:oasis:names:tc:SAML:2.0:nameid-format:persistent
         </md:NameIDFormat>
         <md:AssertionConsumerService isDefault="true" index="0"
                                      Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
@@ -28,7 +25,7 @@
                                      Location="{{ postURL }}"/>
         <md:AttributeConsumingService isDefault="true" index="1">
             <md:ServiceName xml:lang="en">
-                Service Provider Portal
+                {{ OrganizationName }}
             </md:ServiceName>
             <md:RequestedAttribute
                     NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"
