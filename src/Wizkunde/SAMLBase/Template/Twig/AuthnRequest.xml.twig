@@ -37,11 +37,4 @@
         </saml:AuthnContextClassRef>
     </samlp:RequestedAuthnContext>
 
-    <samlp:Scoping>
-        <samlp:IDPList>
-            <samlp:IDPEntry ProviderID="{{ Issuer }}" Name="string"/>
-            <samlp:GetComplete>{{ Issuer }}</samlp:GetComplete>
-        </samlp:IDPList>
-        <samlp:RequesterID>{{ Issuer }}</samlp:RequesterID>
-    </samlp:Scoping>
 </samlp:AuthnRequest>
